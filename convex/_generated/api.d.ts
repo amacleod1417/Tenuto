@@ -15,6 +15,8 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
+import type * as heartrate from "../heartrate.js";
+import type * as heartrate_test from "../heartrate_test.js";
 import type * as messages from "../messages.js";
 import type * as spotify from "../spotify.js";
 
@@ -27,6 +29,8 @@ import type * as spotify from "../spotify.js";
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  heartrate: typeof heartrate;
+  heartrate_test: typeof heartrate_test;
   messages: typeof messages;
   spotify: typeof spotify;
 }>;
