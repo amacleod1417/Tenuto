@@ -1,17 +1,21 @@
 import { ConvexProvider, ConvexReactClient } from "convex/react";
-import React, { StrictMode, useState } from "react";
-import { FlatList, SafeAreaView, Text, TextInput, View } from "react-native";
+import { CONVEX_URL } from "env";
+import React, { StrictMode, useState, useEffect } from "react";
+import { FlatList, SafeAreaView, Text, TextInput, View, Button } from "react-native";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "./convex/_generated/api";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import SpotifyAuthScreen from './src/components/SpotifyAuthScreen';
+import SpotifyLikedSongs from './src/screens/SpotifyLikedSongs';
 import styles from "./styles";
 
 function InnerApp() {
+  // Convex chat functionality 
   const messages = useQuery(api.messages.list) || [];
-
   const [newMessageText, setNewMessageText] = useState("");
   const sendMessage = useMutation(api.messages.send);
-
   const [name] = useState(() => "User " + Math.floor(Math.random() * 10000));
+
   async function handleSendMessage(event) {
     event.preventDefault();
     setNewMessageText("");
@@ -57,14 +61,49 @@ function InnerApp() {
 }
 
 const App = () => {
-  const convex = new ConvexReactClient(process.env.EXPO_PUBLIC_CONVEX_URL, {
-    // We need to disable this to be compatible with React Native
-    unsavedChangesWarning: false,
+  const convex = new ConvexReactClient(CONVEX_URL, {
+    unsavedChangesWarning: false, // Disable for React Native compatibility
   });
+
+  const [accessToken, setAccessToken] = useState(null);
+  const [showChatApp, setShowChatApp] = useState(true);  // Manage chat and Spotify views
+
+  // Check for access token from storage or other sources
+  useEffect(() => {
+    const loadToken = async () => {
+      const storedToken = await AsyncStorage.getItem('accessToken');
+      if (storedToken) {
+        setAccessToken(storedToken);
+      }
+    };
+    loadToken();
+  }, []);
+
+  const handleToken = async (token) => {
+    setAccessToken(token);
+    await AsyncStorage.setItem('accessToken', token); // Store the token
+  };
+
   return (
     <StrictMode>
       <ConvexProvider client={convex}>
-        <InnerApp />
+        {!accessToken ? (
+          // If no access token, show the Spotify authentication screen
+          <SpotifyAuthScreen onAuthenticated={handleToken} />
+        ) : (
+          // If authenticated, show Spotify functionality or the chat app based on state
+          showChatApp ? (
+            <>
+              <InnerApp />  {/* Chat functionality */}
+              <Button title="Switch to Spotify" onPress={() => setShowChatApp(false)} />
+            </>
+          ) : (
+            <>
+              <SpotifyLikedSongs accessToken={accessToken} />
+              <Button title="Switch to Chat" onPress={() => setShowChatApp(true)} />
+            </>
+          )
+        )}
       </ConvexProvider>
     </StrictMode>
   );
