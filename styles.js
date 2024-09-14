@@ -47,6 +47,35 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
   },
+  buttonText: {
+    color: "#465663",
+    fontSize: 20,
+    fontFamily: "Poppins_400Regular",
+    textDecorationLine: "underline",
+    paddingBottom: 20,
+  },
+  button: {
+    alignSelf: "center",
+    alignContent: "center",
+  },
+  page: {
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#E9E2DA",
+    height: "100%",
+  },
+  logo: {
+    fontFamily: "LibreBaskerville_400Regular",
+    fontSize: 50,
+    color: "#465663",
+    padding: 10,
+  },
+  header: {
+    fontFamily: "Poppins_700Regular",
+    fontSize: 30,
+    color: "#465663",
+    paddingBottom: 20,
+  },
 });
 
 export default styles;

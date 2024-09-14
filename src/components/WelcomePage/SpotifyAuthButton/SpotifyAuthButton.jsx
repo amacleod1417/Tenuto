@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
-import { Button, Linking, Alert } from 'react-native';
+import { Linking, Alert, View, TouchableOpacity, Text } from 'react-native';
 import { useMutation } from 'convex/react';
+import styles from '../../../../styles';
 
 const spotifyAuthorizeUrl = `https://accounts.spotify.com/authorize?client_id=YOUR_CLIENT_ID&response_type=code&redirect_uri=YOUR_REDIRECT_URI&scope=user-library-read`;
 
@@ -36,7 +37,13 @@ const SpotifyAuthScreen = ({ onAuthenticated }) => {
     Linking.openURL(spotifyAuthorizeUrl);
   };
 
-  return <Button title="Login to Spotify" onPress={openSpotifyAuth} />;
+  return (
+    <View>
+      <TouchableOpacity style={styles.button} onPress={openSpotifyAuth}>
+        <Text style={styles.buttonText}>Connect to Spotify</Text>
+      </TouchableOpacity>
+    </View>
+  );
 };
 
 export default SpotifyAuthScreen;
