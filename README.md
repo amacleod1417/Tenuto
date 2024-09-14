@@ -10,6 +10,8 @@ This app is a messages app built using [Expo](https://expo.dev/) following the
 Run:
 
 ```
+accept convex invite in email
+npx convex dev
 npm install
 npm start
 ```
