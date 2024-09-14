@@ -1,5 +1,4 @@
 import { ConvexProvider, ConvexReactClient } from "convex/react";
-import { CONVEX_URL } from "env";
 import React, { StrictMode, useState } from "react";
 import { FlatList, SafeAreaView, Text, TextInput, View } from "react-native";
 import { useMutation, useQuery } from "convex/react";
