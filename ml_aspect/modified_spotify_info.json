@@ -1,0 +1,40 @@
+{
+    "2plbrEY59IikOBgBGLjaoe": {
+        "name": "Die With A Smile",
+        "artists": "Lady Gaga, Bruno Mars",
+        "danceability": 0.521,
+        "energy": 0.592,
+        "tempo": 157.969,
+        "valence": 0.535,
+        "meaning": "A song about the struggle of moving on from a past relationship, accepting the changes, and learning to embrace a new life.",
+        "genres": [
+            "Pop",
+            "Ballad"
+        ],
+        "emotions": [
+            "Sadness",
+            "Nostalgia",
+            "Hope",
+            "Acceptance"
+        ]
+    },
+    "6dOtVTDdiauQNBQEDOtlAB": {
+        "name": "BIRDS OF A FEATHER",
+        "artists": "Billie Eilish",
+        "danceability": 0.747,
+        "energy": 0.507,
+        "tempo": 104.978,
+        "valence": 0.438,
+        "meaning": "A song about the struggle of moving on from a past relationship, accepting the changes, and learning to embrace a new life.",
+        "genres": [
+            "Pop",
+            "Ballad"
+        ],
+        "emotions": [
+            "Sadness",
+            "Nostalgia",
+            "Hope",
+            "Acceptance"
+        ]
+    }
+}
