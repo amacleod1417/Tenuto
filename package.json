@@ -12,13 +12,14 @@
     "@react-native/assets-registry": "^0.75.3",
     "axios": "^1.7.7",
     "convex": "^1.16.0",
-    "expo": "^51.0.32",
+    "expo": "^45.0.8",
+    "expo-keep-awake": "^13.0.2",
     "expo-status-bar": "~1.12.1",
     "react": "18.2.0",
-    "react-dom": "^18.2.0",
-    "react-native": "0.74.5",
-    "react-native-dotenv": "^3.4.8",
-    "react-native-get-random-values": "~1.11.0"
+    "react-native-dotenv": "^3.4.11",
+    "react-native-get-random-values": "~1.11.0",
+    "sentiment": "^5.0.2",
+    "spotify-web-api-node": "^5.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

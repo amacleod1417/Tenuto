@@ -1,5 +1,5 @@
 import { ConvexProvider, ConvexReactClient } from "convex/react";
-import { CONVEX_URL } from "env";
+import { EXPO_PUBLIC_CONVEX_URL } from "@env";
 import React, { StrictMode, useState, useEffect } from "react";
 import { FlatList, SafeAreaView, Text, TextInput, View, Button } from "react-native";
 import { useMutation, useQuery } from "convex/react";
@@ -9,8 +9,8 @@ import SpotifyAuthScreen from './src/components/SpotifyAuthScreen';
 import SpotifyLikedSongs from './src/screens/SpotifyLikedSongs';
 import styles from "./styles";
 
+// Chat functionality
 function InnerApp() {
-  // Convex chat functionality 
   const messages = useQuery(api.messages.list) || [];
   const [newMessageText, setNewMessageText] = useState("");
   const sendMessage = useMutation(api.messages.send);
@@ -61,7 +61,8 @@ function InnerApp() {
 }
 
 const App = () => {
-  const convex = new ConvexReactClient(CONVEX_URL, {
+  // Corrected: using EXPO_PUBLIC_CONVEX_URL from @env
+  const convex = new ConvexReactClient(EXPO_PUBLIC_CONVEX_URL, {
     unsavedChangesWarning: false, // Disable for React Native compatibility
   });
 
