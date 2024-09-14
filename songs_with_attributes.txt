@@ -1,299 +1,399 @@
 {
     "2plbrEY59IikOBgBGLjaoe": {
+        "name": "Die With A Smile",
+        "artists": "Lady Gaga, Bruno Mars",
         "danceability": 0.521,
         "energy": 0.592,
         "tempo": 157.969,
         "valence": 0.535
     },
     "6dOtVTDdiauQNBQEDOtlAB": {
+        "name": "BIRDS OF A FEATHER",
+        "artists": "Billie Eilish",
         "danceability": 0.747,
         "energy": 0.507,
         "tempo": 104.978,
         "valence": 0.438
     },
     "2cZOYofOX4d6g0OXxkaIjA": {
+        "name": "ALL RED",
+        "artists": "Playboi Carti",
         "danceability": 0.76,
         "energy": 0.663,
         "tempo": 143.082,
         "valence": 0.209
     },
     "5G2f63n7IPVPPjfNIGih7Q": {
+        "name": "Taste",
+        "artists": "Sabrina Carpenter",
         "danceability": 0.674,
         "energy": 0.907,
         "tempo": 112.964,
         "valence": 0.721
     },
     "2qSkIjg1o9h3YT9RAgYN75": {
+        "name": "Espresso",
+        "artists": "Sabrina Carpenter",
         "danceability": 0.701,
         "energy": 0.76,
         "tempo": 103.969,
         "valence": 0.69
     },
     "2PnlsTsOTLE5jnBnNe2K0A": {
+        "name": "The Emptiness Machine",
+        "artists": "Linkin Park",
         "danceability": 0.466,
         "energy": 0.872,
         "tempo": 184.115,
         "valence": 0.806
     },
     "7tI8dRuH2Yc6RuoTjxo4dU": {
+        "name": "Who",
+        "artists": "Jimin",
         "danceability": 0.66,
         "energy": 0.756,
         "tempo": 116.034,
         "valence": 0.838
     },
     "6WatFBLVB0x077xWeoVc2k": {
+        "name": "Si Antes Te Hubiera Conocido",
+        "artists": "KAROL G",
         "danceability": 0.924,
         "energy": 0.668,
         "tempo": 128.027,
         "valence": 0.787
     },
     "0WbMK4wrZ1wFSty9F7FCgu": {
+        "name": "Good Luck, Babe!",
+        "artists": "Chappell Roan",
         "danceability": 0.7,
         "energy": 0.582,
         "tempo": 116.712,
         "valence": 0.785
     },
     "7z7kvUQGwlC6iOl7vMuAr9": {
+        "name": "Dancing In The Flames",
+        "artists": "The Weeknd",
         "danceability": 0.552,
         "energy": 0.73,
         "tempo": 116.875,
         "valence": 0.162
     },
     "5N3hjp1WNayUPZrA8kJmJP": {
+        "name": "Please Please Please",
+        "artists": "Sabrina Carpenter",
         "danceability": 0.669,
         "energy": 0.586,
         "tempo": 107.071,
         "valence": 0.579
     },
     "3xkHsmpQCBMytMJNiDf3Ii": {
+        "name": "Beautiful Things",
+        "artists": "Benson Boone",
         "danceability": 0.472,
         "energy": 0.471,
         "tempo": 105.029,
         "valence": 0.219
     },
     "1UHS8Rf6h5Ar3CDWRd3wjF": {
+        "name": "Bed Chem",
+        "artists": "Sabrina Carpenter",
         "danceability": 0.739,
         "energy": 0.727,
         "tempo": 94.99,
         "valence": 0.676
     },
     "5fZJQrFKWQLb7FpJXZ1g7K": {
+        "name": "A Bar Song (Tipsy)",
+        "artists": "Shaboozey",
         "danceability": 0.722,
         "energy": 0.706,
         "tempo": 80.969,
         "valence": 0.599
     },
     "17phhZDn6oGtzMe56NuWvj": {
+        "name": "Lose Control",
+        "artists": "Teddy Swims",
         "danceability": 0.561,
         "energy": 0.604,
         "tempo": 159.92,
         "valence": 0.242
     },
     "24XihnoVPWXlKJ4BgXqjVM": {
+        "name": "It's ok I'm ok",
+        "artists": "Tate McRae",
         "danceability": 0.754,
         "energy": 0.514,
         "tempo": 114.997,
         "valence": 0.363
     },
     "5Z0UnEtpLDQyYlWwgi8m9C": {
+        "name": "Too Sweet",
+        "artists": "Hozier",
         "danceability": 0.741,
         "energy": 0.62,
         "tempo": 117.038,
         "valence": 0.934
     },
     "3WOhcATHxK2SLNeP5W3v1v": {
+        "name": "Guess featuring Billie Eilish",
+        "artists": "Charli xcx, Billie Eilish",
         "danceability": 0.776,
         "energy": 0.667,
         "tempo": 130.019,
         "valence": 0.618
     },
     "3hRV0jL3vUpRrcy398teAU": {
+        "name": "The Night We Met",
+        "artists": "Lord Huron",
         "danceability": 0.448,
         "energy": 0.369,
         "tempo": 174.097,
         "valence": 0.0998
     },
     "0OA00aPt3BV10qeMIs3meW": {
+        "name": "Big Dawgs",
+        "artists": "Hanumankind, Kalmi",
         "danceability": 0.464,
         "energy": 0.745,
         "tempo": 180.098,
         "valence": 0.262
     },
     "2esZG2XFtuoWWA9AfDvSxy": {
+        "name": "Gata Only",
+        "artists": "FloyyMenor, Cris Mj",
         "danceability": 0.794,
         "energy": 0.5,
         "tempo": 99.985,
         "valence": 0.659
     },
     "7CyPwkp0oE8Ro9Dd5CUDjW": {
+        "name": "One Of The Girls (with JENNIE, Lily Rose Depp)",
+        "artists": "The Weeknd, JENNIE, Lily-Rose Depp",
         "danceability": 0.264,
         "energy": 0.64,
         "tempo": 84.828,
         "valence": 0.19
     },
     "5IZXB5IKAD2qlvTPJYDCFB": {
+        "name": "I Had Some Help (Feat. Morgan Wallen)",
+        "artists": "Post Malone, Morgan Wallen",
         "danceability": 0.644,
         "energy": 0.874,
         "tempo": 128.017,
         "valence": 0.753
     },
     "2nLtzopw4rPReszdYBJU6h": {
+        "name": "Numb",
+        "artists": "Linkin Park",
         "danceability": 0.488,
         "energy": 0.87,
         "tempo": 110.072,
         "valence": 0.211
     },
     "6AI3ezQ4o3HUoP6Dhudph3": {
+        "name": "Not Like Us",
+        "artists": "Kendrick Lamar",
         "danceability": 0.898,
         "energy": 0.472,
         "tempo": 101.061,
         "valence": 0.214
     },
     "4xdBrk0nFZaP54vvZj0yx7": {
+        "name": "HOT TO GO!",
+        "artists": "Chappell Roan",
         "danceability": 0.742,
         "energy": 0.757,
         "tempo": 139.982,
         "valence": 0.957
     },
     "51ZQ1vr10ffzbwIjDCwqm4": {
+        "name": "we can't be friends (wait for your love)",
+        "artists": "Ariana Grande",
         "danceability": 0.645,
         "energy": 0.646,
         "tempo": 115.842,
         "valence": 0.295
     },
     "2QjOHCTQ1Jl3zawyYOpxh6": {
+        "name": "Sweater Weather",
+        "artists": "The Neighbourhood",
         "danceability": 0.612,
         "energy": 0.807,
         "tempo": 124.053,
         "valence": 0.398
     },
     "5AJ9hqTS2wcFQCELCFRO7A": {
+        "name": "MILLION DOLLAR BABY",
+        "artists": "Tommy Richman",
         "danceability": 0.852,
         "energy": 0.697,
         "tempo": 138.029,
         "valence": 0.919
     },
     "5XeFesFbtLpXzIVDNQP22n": {
+        "name": "I Wanna Be Yours",
+        "artists": "Arctic Monkeys",
         "danceability": 0.464,
         "energy": 0.417,
         "tempo": 67.528,
         "valence": 0.479
     },
     "2ZqTbIID9vFPTXaGyzbb4q": {
+        "name": "Neva Play (feat. RM of BTS)",
+        "artists": "Megan Thee Stallion, RM",
         "danceability": 0.826,
         "energy": 0.756,
         "tempo": 160.01,
         "valence": 0.794
     },
     "1BxfuPKGuaTgP7aM0Bbdwr": {
+        "name": "Cruel Summer",
+        "artists": "Taylor Swift",
         "danceability": 0.552,
         "energy": 0.702,
         "tempo": 169.994,
         "valence": 0.564
     },
     "62bOmKYxYg7dhrC6gH9vFn": {
+        "name": "Bye Bye Bye - From Deadpool and Wolverine Soundtrack",
+        "artists": "*NSYNC",
         "danceability": 0.61,
         "energy": 0.926,
         "tempo": 172.638,
         "valence": 0.861
     },
     "5QjmUqgpPQgXgg4606DqZF": {
+        "name": "UWAIE",
+        "artists": "Kapo",
         "danceability": 0.705,
         "energy": 0.783,
         "tempo": 103.001,
         "valence": 0.454
     },
     "51rfRCiUSvxXlCSCfIztBy": {
+        "name": "I Love You, I'm Sorry",
+        "artists": "Gracie Abrams",
         "danceability": 0.53,
         "energy": 0.406,
         "tempo": 115.94,
         "valence": 0.338
     },
     "3QaPy1KgI7nu9FJEQUgn6h": {
+        "name": "WILDFLOWER",
+        "artists": "Billie Eilish",
         "danceability": 0.467,
         "energy": 0.247,
         "tempo": 148.101,
         "valence": 0.126
     },
     "42VsgItocQwOQC3XWZ8JNA": {
+        "name": "FE!N (feat. Playboi Carti)",
+        "artists": "Travis Scott, Playboi Carti",
         "danceability": 0.569,
         "energy": 0.882,
         "tempo": 148.038,
         "valence": 0.201
     },
     "1BJJbSX6muJVF2AK7uH1x4": {
+        "name": "Move",
+        "artists": "Adam Port, Stryv, Keinemusik, Orso, Malachiii",
         "danceability": 0.727,
         "energy": 0.782,
         "tempo": 119.992,
         "valence": 0.655
     },
     "7ov3TDp5D00Rnu5R1viX4w": {
+        "name": "New Woman (feat. ROSAL\u00cdA)",
+        "artists": "LISA, ROSAL\u00cdA",
         "danceability": 0.477,
         "energy": 0.854,
         "tempo": 140.515,
         "valence": 0.314
     },
     "42wdz3j7gstgUuhoFLCXqd": {
+        "name": "PELIGROSA",
+        "artists": "FloyyMenor",
         "danceability": 0.763,
         "energy": 0.519,
         "tempo": 100.025,
         "valence": 0.804
     },
     "0UYnhUfnUj5adChuAXvLUB": {
+        "name": "Sailor Song",
+        "artists": "Gigi Perez",
         "danceability": 0.492,
         "energy": 0.416,
         "tempo": 94.926,
         "valence": 0.297
     },
     "2uqYupMHANxnwgeiXTZXzd": {
+        "name": "Austin (Boots Stop Workin')",
+        "artists": "Dasha",
         "danceability": 0.756,
         "energy": 0.672,
         "tempo": 114.935,
         "valence": 0.739
     },
     "3AJwUDP919kvQ9QcozQPxg": {
+        "name": "Yellow",
+        "artists": "Coldplay",
         "danceability": 0.429,
         "energy": 0.661,
         "tempo": 173.372,
         "valence": 0.285
     },
     "3Vr3zh0r7ALn8VLqCiRR10": {
+        "name": "Stargazing",
+        "artists": "Myles Smith",
         "danceability": 0.635,
         "energy": 0.601,
         "tempo": 123.994,
         "valence": 0.332
     },
     "3qhlB30KknSejmIvZZLjOD": {
+        "name": "End of Beginning",
+        "artists": "Djo",
         "danceability": 0.689,
         "energy": 0.454,
         "tempo": 159.982,
         "valence": 0.912
     },
     "5496lks6V3fh1mZAB6IAap": {
+        "name": "Alibi (with Pabllo Vittar & Yseult)",
+        "artists": "Sevdaliza, Pabllo Vittar, Yseult",
         "danceability": 0.741,
         "energy": 0.754,
         "tempo": 126.98,
         "valence": 0.717
     },
     "102YUQbYmwdBXS7jwamI90": {
+        "name": "Good Graces",
+        "artists": "Sabrina Carpenter",
         "danceability": 0.758,
         "energy": 0.759,
         "tempo": 126.012,
         "valence": 0.732
     },
     "3JG1uFc40wfyrqaWC7iv0e": {
+        "name": "i like the way you kiss me",
+        "artists": "Artemas",
         "danceability": 0.599,
         "energy": 0.946,
         "tempo": 151.647,
         "valence": 0.747
     },
     "7bywjHOc0wSjGGbj04XbVi": {
+        "name": "LUNA",
+        "artists": "Feid, ATL Jacob",
         "danceability": 0.774,
         "energy": 0.86,
         "tempo": 100.019,
         "valence": 0.446
     },
     "2aYZaN5SmkRDLsrrV8GkBQ": {
+        "name": "LA PATRULLA",
+        "artists": "Peso Pluma, Neton Vega",
         "danceability": 0.722,
         "energy": 0.74,
         "tempo": 132.731,

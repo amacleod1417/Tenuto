@@ -55,7 +55,7 @@ def get_user_liked_songs(access_token):
 
     return liked_songs
 
-# Get Top 50 Global Songs if no liked songs are available
+#get Top 50 Global Songs if no liked songs available
 def get_top_50_global_songs(access_token):
     url = f'https://api.spotify.com/v1/playlists/{TOP_50_PLAYLIST_ID}/tracks'
     headers = {
@@ -81,26 +81,30 @@ def get_top_50_global_songs(access_token):
 
 # Get Song Attributes
 def get_song_attributes(access_token, track_ids):
-    url = 'https://api.spotify.com/v1/audio-features'
+    audio_features_url = 'https://api.spotify.com/v1/audio-features'
+    tracks_url = 'https://api.spotify.com/v1/tracks'
     headers = {
         'Authorization': f'Bearer {access_token}'
     }
-    params = {
-        'ids': ','.join(track_ids)
-    }
 
-    response = requests.get(url, headers=headers, params=params)
-    response_data = response.json()
+    audio_features_response = requests.get(audio_features_url, headers=headers, params={'ids': ','.join(track_ids)})
+    audio_features_data = audio_features_response.json()
 
-    song_attributes = {
-        track['id']: {
-            'danceability': track['danceability'],
-            'energy': track['energy'],
-            'tempo': track['tempo'],
-            'valence': track['valence']
+    #get track metadata
+    tracks_response = requests.get(tracks_url, headers=headers, params={'ids': ','.join(track_ids)})
+    tracks_data = tracks_response.json()
+
+    song_attributes = {}
+    for track, audio_features in zip(tracks_data['tracks'], audio_features_data['audio_features']):
+ 
+        song_attributes[track['id']] = {
+            'name': track['name'],                       
+            'artists': ', '.join(artist['name'] for artist in track['artists']),                                     
+            'danceability': audio_features['danceability'],   
+            'energy': audio_features['energy'],                   
+            'tempo': audio_features['tempo'],                 
+            'valence': audio_features['valence']                  
         }
-        for track in response_data['audio_features']
-    }
 
     return song_attributes
 

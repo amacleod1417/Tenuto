@@ -2,7 +2,7 @@
   "name": "react-native-demo",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
-  "type": "module", 
+  "type": "module",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -20,6 +20,7 @@
     "react": "18.2.0",
     "react-native-dotenv": "^3.4.11",
     "react-native-get-random-values": "~1.11.0",
+    "react-native-health": "^1.18.0",
     "sentiment": "^5.0.2",
     "spotify-web-api-node": "^5.0.2"
   },
