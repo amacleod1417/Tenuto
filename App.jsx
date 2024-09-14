@@ -58,7 +58,7 @@ function InnerApp() {
 }
 
 const App = () => {
-  const convex = new ConvexReactClient(CONVEX_URL, {
+  const convex = new ConvexReactClient(process.env.EXPO_PUBLIC_CONVEX_URL, {
     // We need to disable this to be compatible with React Native
     unsavedChangesWarning: false,
   });
