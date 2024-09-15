@@ -4,6 +4,9 @@ from datetime import datetime
 # Hardcoded access token for your specific Fitbit account
 ACCESS_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyM1BMWkIiLCJzdWIiOiI5Rks5U0siLCJpc3MiOiJGaXRiaXQiLCJ0eXAiOiJhY2Nlc3NfdG9rZW4iLCJzY29wZXMiOiJyaHIiLCJleHAiOjE3MjYzODE0ODMsImlhdCI6MTcyNjM1MjY4M30.37a0K-7SOJK8y62GeCXx0JRLJ8oGH6lnm5_Dce_AdOU'  # Replace with your valid access token
 
+def fitbit_oauth2_authenticate():
+    return ACCESS_TOKEN
+
 def get_heart_rate_data():
     headers = {
         'Authorization': f'Bearer {ACCESS_TOKEN}'
