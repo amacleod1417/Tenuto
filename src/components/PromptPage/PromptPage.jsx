@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, Image, TouchableOpacity, Alert, TextInput, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import styles from '../../../styles';
@@ -7,11 +7,12 @@ import { AppContext } from '../../AppContext';
 
 const PromptPage = () => {
   const navigation = useNavigation();
-  const [inputText, setInputText] = useState('');
-  const { sharedData, setSharedData } = useContext(AppContext);
+  const [inputText2, setInputText2] = useState('');
+  const { inputText, setSharedData } = useContext(AppContext);
 
   const handleSubmit = async () => {
-    setSharedData(inputText);
+    setSharedData(inputText2);
+    Alert.alert(inputText);
     try {
       console.log('Submitting inputText:', inputText);
   
@@ -65,8 +66,8 @@ const PromptPage = () => {
           <TextInput
             style={styles.input}
             placeholder="how are you, really?"
-            value={inputText}
-            onChangeText={setInputText}
+            value={inputText2}
+            onChangeText={setInputText2}
             multiline
             numberOfLines={10}
           />

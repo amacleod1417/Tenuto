@@ -11,6 +11,7 @@ import styles from "./styles";
 import WelcomePage from "./src/components/WelcomePage/WelcomePage";
 import ConnectPage from "./src/components/ConnectPage/ConnectPage";
 import AppLoading from 'expo-app-loading';
+import { AppProvider } from "./src/AppContext";
 import { useFonts, Poppins_400Regular, Poppins_700Bold } from '@expo-google-fonts/poppins';
 import {
   LibreBaskerville_400Regular,

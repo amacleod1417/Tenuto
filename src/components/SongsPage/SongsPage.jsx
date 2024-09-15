@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import { Audio } from 'expo-av';
 import styles from '../../../styles';
@@ -11,8 +11,8 @@ const SongsPage = () => {
   const [sound, setSound] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentSong, setCurrentSong] = useState('');
-  const { sharedData } = useContext(AppContext);
-  console.log(sharedData);
+  const { inputText } = useContext(AppContext);
+  console.log(inputText);
 
 
   const fetchNextSong = async () => {
@@ -25,6 +25,7 @@ const SongsPage = () => {
         headers: {
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify({ inputText }),
       });
   
       console.log('Response status:', response.status);

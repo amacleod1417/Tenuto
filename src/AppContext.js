@@ -5,10 +5,10 @@ export const AppContext = createContext();
 
 // Create a provider component
 export const AppProvider = ({ children }) => {
-  const [sharedData, setSharedData] = useState('');
+  const [inputText, setSharedData] = useState('');
 
   return (
-    <AppContext.Provider value={{ sharedData, setSharedData }}>
+    <AppContext.Provider value={{ inputText, setSharedData }}>
       {children}
     </AppContext.Provider>
   );
