@@ -1,18 +1,30 @@
 import cohere
 import json
 import pandas as pd
-from pprint import pprint
 import os 
 from dotenv import load_dotenv
 from pinecone import Pinecone
-from heartrate_test import classify_emotional_state, get_heart_rate_data, calculate_hrv
+from pathlib import Path
+from utils import play_songs_based_on_emotional_state, initialize_emotional_state 
 
-# Setting up Cohere (obj) + Pinecone (obj + index)
-load_dotenv("HackTheNorthProj/ml_aspect/cohere_api_key.env")
-load_dotenv("HackTheNorthProj/ml_aspect/pinecone_api_key.env")
+# # Setting up Cohere (obj) + Pinecone (obj + index)
+# load_dotenv("HackTheNorthProj/ml_aspect/cohere_api_key.env")
+# load_dotenv("HackTheNorthProj/ml_aspect/pinecone_api_key.env")
 
 cohere_api_key = os.getenv('COHERE_API_KEY')
 pinecone_api_key = os.getenv('PINECONE_API_KEY')
+
+
+# Get the absolute path to the directory containing embeddings.py
+script_dir = Path(__file__).resolve().parent
+
+# Construct absolute paths to the .env files
+cohere_env_path = script_dir / 'cohere_api_key.env'
+pinecone_env_path = script_dir / 'pinecone_api_key.env'
+
+# Load the .env files
+load_dotenv(dotenv_path=cohere_env_path)
+load_dotenv(dotenv_path=pinecone_env_path)
 
 co = cohere.Client(
     api_key=cohere_api_key
@@ -22,8 +34,9 @@ pc = Pinecone(api_key=pinecone_api_key)
 index = pc.Index("htn-vector-index")
 
 # Loading in the modified_spotify_info.json file
+json_file_path = script_dir / 'modified_spotify_info.json'
 
-with open('HackTheNorthProj/ml_aspect/modified_spotify_info.json', 'r') as f:
+with open(json_file_path, 'r') as f:
     songs_data_py_dict = json.load(f)
 
 # pprint(songs_data_py_dict)
@@ -32,7 +45,7 @@ with open('HackTheNorthProj/ml_aspect/modified_spotify_info.json', 'r') as f:
 df = pd.DataFrame.from_dict(songs_data_py_dict, orient='index')
 
 # displays a row of the table, 
-print(df.head())
+# print(df.head())
 
 # Now to create the textual input to be embedded, we exclude ones which are not as important, and increase the importance of ones
 # which we think are important, by repeating it more than once
@@ -50,70 +63,71 @@ def check_existing_embeddings(index, namespace):
         return False
 
 # Skip embedding generation if embeddings already exist
-if not check_existing_embeddings(index, "songs"):
-    def create_embedding_text(row):
-        emotions_text = f"Emotions: {', '.join(row['emotions'])}. Emotions: {', '.join(row['emotions'])}. "  # Repeating to emphasize
-        valence_text = f"Valence: {row['valence']}."
-        name_text = f"Song Name: {row['name']}."
-        return emotions_text + valence_text + name_text
+def generate_and_upsert_embeddings():
+    if not check_existing_embeddings(index, "songs"):
+        def create_embedding_text(row):
+            emotions_text = f"Emotions: {', '.join(row['emotions'])}. Emotions: {', '.join(row['emotions'])}. "  # Repeating to emphasize
+            valence_text = f"Valence: {row['valence']}."
+            name_text = f"Song Name: {row['name']}."
+            return emotions_text + valence_text + name_text
 
-    # now to use this function for each row in the dataframe, axis -> 1, means going row by row, and adding this new column called
-    # embedding_text for each of the rows
-    df['embedding_text'] = df.apply(create_embedding_text, axis=1)
+        # now to use this function for each row in the dataframe, axis -> 1, means going row by row, and adding this new column called
+        # embedding_text for each of the rows
+        df['embedding_text'] = df.apply(create_embedding_text, axis=1)
 
-    print(df.head())
-
-
-    # Now we actually embed each of these emebdding_text 's that we have generated for each row (i.e song)
-    input_type_embed = "search_document"
-
-    embeds = co.embed(texts=list(df['embedding_text']),
-                    model=model_name,
-                    input_type=input_type_embed).embeddings
+        # print(df.head())
 
 
-    # now we upsert the vector embeddings into pinecone
-    vectors = [
-        {
-            "id": str(song_id),  # Use song_id as the unique identifier
-            "values": embedding,  # The embedding vector
-            "metadata": {"name": df.loc[song_id, 'name']}  # Metadata with the song name
-        }
-        for song_id, embedding in zip(df.index, embeds)
-    ]
+        # Now we actually embed each of these emebdding_text 's that we have generated for each row (i.e song)
+        input_type_embed = "search_document"
 
-    index.upsert(
-        vectors=vectors,
-        namespace="songs" 
-    )
-    print("Embeddings successfully upserted to Pinecone.")
-else:
-    print("Embeddings already exist in Pinecone. Skipping embedding generation and upsert.")
+        embeds = co.embed(texts=list(df['embedding_text']),
+                        model=model_name,
+                        input_type=input_type_embed).embeddings
 
-# Taking an example query just to see how good the retrival is currently
-query_text = "Emotions: Joy, Hopelessness, Anxiety. Emotions: Joy, Hopelessness, Anxiety"
 
-# embedding the query, so similarity between query can take place with the vector emeddings in the pinecone vector store
+        # now we upsert the vector embeddings into pinecone
+        vectors = [
+            {
+                "id": str(song_id),  # Use song_id as the unique identifier
+                "values": embedding,  # The embedding vector
+                "metadata": {"name": df.loc[song_id, 'name']}  # Metadata with the song name
+            }
+            for song_id, embedding in zip(df.index, embeds)
+        ]
 
-query_embedding = co.embed(
-    texts=[query_text],
-    model=model_name,
-    input_type="search_query"  # Specify embeddings for search queries
-).embeddings[0]
+        index.upsert(
+            vectors=vectors,
+            namespace="songs" 
+        )
+        print("Embeddings successfully upserted to Pinecone.")
+    else:
+        print("Embeddings already exist in Pinecone. Skipping embedding generation and upsert.")
 
-print(query_embedding)
+# # Taking an example query just to see how good the retrival is currently
+# query_text = "Emotions: Joy, Hopelessness, Anxiety. Emotions: Joy, Hopelessness, Anxiety"
 
-# querying finally taking place using pinecone
+# # embedding the query, so similarity between query can take place with the vector emeddings in the pinecone vector store
 
-results = index.query(
-    namespace="songs",
-    vector=query_embedding,
-    top_k=100,
-    include_values=True,
-    include_metadata=True,
-)
+# query_embedding = co.embed(
+#     texts=[query_text],
+#     model=model_name,
+#     input_type="search_query"  # Specify embeddings for search queries
+# ).embeddings[0]
 
-print(results)
+# print(query_embedding)
+
+# # querying finally taking place using pinecone
+
+# results = index.query(
+#     namespace="songs",
+#     vector=query_embedding,
+#     top_k=100,
+#     include_values=True,
+#     include_metadata=True,
+# )
+
+# print(results)
 # the obj it returns is in this format
 # Returns:
 # {'matches': [{'id': 'B',
@@ -123,125 +137,22 @@ print(results)
 #  'namespace': 'example-namespace'}
 
 # Displaying the retrieved results
-for match in results['matches']:
-    print(f"Matched Song: {match['metadata']['name']} with score {match['score']}")
+# for match in results['matches']:
+#     print(f"Matched Song: {match['metadata']['name']} with score {match['score']}")
 
-# Initialize global state
-current_index = 0
-played_indices = set()
-
-
-# Function to initialize emotional state
-def initialize_emotional_state():
-    heart_rate_data = get_heart_rate_data()
-    if heart_rate_data:
-        hrv = calculate_hrv(heart_rate_data)
-        emotional_state = classify_emotional_state(hrv)
-        print(f"Initial estimated emotional state is: {emotional_state}")
-        return emotional_state
-    else:
-        print("No heart rate data available. Cannot initialize emotional state.")
-        return None
-
-# Determine the starting index based on the emotional state
-def find_starting_point(results, emotional_state):
-    mid_index = len(results) // 2  # Assume calm songs are around the midpoint
-    if emotional_state == "Stressed or Anxious":
-        start_index = mid_index  # Start in the middle to avoid sad/stressful songs at the start
-    else:  # If already positive or happy, start from the top
-        start_index = 0
-    return start_index
-
-# Function to generate formatted query text using Cohere's generate
-def generate_query_text(input_text):
-    response = co.generate(
-        prompt=f"Generate a query in the format 'Emotions: emotion1, emotion2, emotion3. Emotions: emotion1, emotion2, emotion3' based on the following input:\n\n{input_text}",
-    )
-    # Extract the generated text
-    generated_text = response.generations[0].text.strip()
-    print(f"Generated Query Text: {generated_text}")
-    return generated_text
-
-
-# Authenticate and fetch initial emotional state
-def play_songs_based_on_emotional_state(results, action, input_text=None):
-    global current_index, played_indices
-
-    if action == 'start':  # Initial call to start the playlist
-        initial_emotional_state = initialize_emotional_state()
-        if not initial_emotional_state:
-            return None
-        current_index = find_starting_point(results['matches'], initial_emotional_state)
-
-    # Modify the query based on input_text if provided
-    if input_text:
-        query_text = generate_query_text(input_text)  # Generate formatted query text
-        query_embedding = co.embed(
-            texts=[query_text],
-            model=model_name,
-            input_type="search_query"
-        ).embeddings[0]
-
-        results = index.query(
-                namespace="songs",
-                vector=query_embedding,
-                top_k=100,
-                include_values=True,
-                include_metadata=True,
-            )
-        
-        print(f"Updated results based on input text: {input_text}")
-
-
-    # skip bool and the determination of whether the song has ended or not, hsould be the deciding factor, whether
-    # we should play the next song based on the current heartbeat
-
-    if action in ['skip', 'end'] and 0 <= current_index < len(results['matches']):
-        current_song = results['matches'][current_index]
-
-         # Skip played songs
-        while current_index in played_indices and current_index < len(results['matches']) - 1:
-            current_index += 1
-
-        # Mark the song as played
-        played_indices.add(current_index)
-
-        current_song_info = {
-            "name": current_song['metadata']['name'],
-            "score": current_song['score']
-        }
-
-        # Re-evaluate emotional state after each song
-        heart_rate_data = get_heart_rate_data()
-        if heart_rate_data:
-            hrv = calculate_hrv(heart_rate_data)
-            current_emotional_state = classify_emotional_state(hrv)
-            print(f"Updated emotional state is: {current_emotional_state}")
-
-        # Adjust index based on current emotional state
-        if current_emotional_state == "Stressed or Anxious":
-            # Remain in the calm section, avoid moving too far back
-            if current_index > len(results['matches']) // 2:
-                current_index = len(results['matches']) // 2  # Reset to middle calm section
-            else:
-                current_index = min(current_index + 1, len(results['matches']) - 1)  # Small forward movement
-
-        elif current_emotional_state == "Calm":
-            current_index += 1  # Progress slowly towards happier songs
-
-        elif current_emotional_state == "Excited or Active":
-            current_index += 5  # Move further into happy/upbeat songs
-
+def process_results_from_api(results):
+    if results and 'matches' in results:
+        song_info = play_songs_based_on_emotional_state(results, 'start')
+        if song_info:
+            print(f"Playing Song: {song_info['name']} with score {song_info['score']}")
         else:
-            current_index += 1  # Neutral progress towards happiness
-
-        # Ensure index stays within bounds
-        current_index = min(current_index, len(results['matches']) - 1)
-
-        print(f"Playing Song: {current_song['metadata']['name']} with score {current_song['score']}")
-        return current_song_info
-
-    return None # symbolizes the playlist getting over 
+            print("No more songs to play.")
+    else:
+        print("Results are empty or improperly formatted. Ensure the API endpoint is called correctly.")
 
 if __name__ == "__main__":
-    play_songs_based_on_emotional_state(results, 'start')
+    # if global_results:  # Ensure global_results is available
+    #     play_songs_based_on_emotional_state(global_results, 'start')
+    # else:
+    #     print("Global results not available. Ensure process_input API endpoint is called first.")
+    generate_and_upsert_embeddings()
