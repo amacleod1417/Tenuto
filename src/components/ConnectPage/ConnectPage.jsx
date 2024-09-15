@@ -9,11 +9,11 @@ const ConnectPage = () => {
   const [fitbitPressed, setFitbitPressed] = useState(false);
   const navigation = useNavigation();
 
-  useEffect(() => {
-    if (spotifyPressed && fitbitPressed) {
-      navigation.navigate('Prompt');
-    }
-  }, [spotifyPressed, fitbitPressed, navigation]);
+  // useEffect(() => {
+  //   if (spotifyPressed && fitbitPressed) {
+  //     navigation.navigate('Prompt');
+  //   }
+  // }, [spotifyPressed, fitbitPressed, navigation]);
 
   return (
     <View style={styles.page}>
@@ -22,7 +22,7 @@ const ConnectPage = () => {
         style={styles.button}
         onPress={() => {
           // Alert.alert('spotify pressed');
-          setSpotifyPressed(true);
+          // setSpotifyPressed(true);
         }}
       >
         <Text style={styles.buttonText}>spotify</Text>
@@ -30,8 +30,13 @@ const ConnectPage = () => {
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
-          Alert.alert('All connections successful');
-          setFitbitPressed(true);
+          Alert.alert('All connections successful', '', [
+            {
+              text: 'OK',
+              onPress: () => navigation.navigate('Prompt'),
+            },
+          ]);
+          // setFitbitPressed(true);
         }}
       >
         <Text style={styles.buttonText}>fitbit</Text>

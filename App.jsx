@@ -1,7 +1,7 @@
 import { ConvexProvider, ConvexReactClient } from "convex/react";
 // import { CONVEX_URL } from "env";
 import React, { StrictMode, useState, useEffect } from "react";
-import { FlatList, SafeAreaView, Text, TextInput, View, Button } from "react-native";
+import { FlatList, SafeAreaView, Text, TextInput, View, Button, LogBox } from "react-native";
 import { useMutation, useQuery } from "convex/react";
 import { api } from "./convex/_generated/api";
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -110,6 +110,9 @@ const App = () => {
   //   setAccessToken(token);
   //   await AsyncStorage.setItem('accessToken', token); // Store the token
   // };
+  console.disableYellowBox = true;
+  LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+  LogBox.ignoreAllLogs();//Ignore all log notifications
 
   return (
     // <StrictMode>
