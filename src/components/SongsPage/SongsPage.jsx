@@ -3,21 +3,30 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { Audio } from 'expo-av';
 import styles from '../../../styles';
 import Footer from '../Footer/Footer';
-import { getArtist } from '../../../convex/songs';
 import { api } from '../../../convex/_generated/api';
-import { useMutation, useQuery } from "convex/react";
-
+import { useQuery } from "convex/react";
 
 const SongsPage = () => {
   const [sound, setSound] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
-  const [currentSong, setCurrentSong] = useState('WHY?');
+  const [currentSong, setCurrentSong] = useState('');
 
-  // const songFilePath = (song) => {
-  //   return await Audio.Sound.createAsync(require('./songs' + song.replace(/[^a-zA-Z]/g, '').toUpperCase() + '.mp3'));
-  // }
-  const artists = useQuery(api.songs.getArtist, { name: currentSong }) || "";
 
+  const fetchNextSong = async () => {
+    try {
+      const response = await fetch('https://your-api-endpoint.com/next-song');
+      const data = await response.json();
+      setCurrentSong(data.name);
+    } catch (error) {
+      console.error('Error fetching next song:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchNextSong();
+  }, []);
+
+  const artists = currentSong ? useQuery(api.songs.getArtist, { name: currentSong }) : "";
 
   async function playPauseSound() {
     if (sound) {
@@ -42,6 +51,7 @@ const SongsPage = () => {
         if (status.didJustFinish) {
           console.log('Song has finished playing');
           setIsPlaying(false);
+          fetchNextSong();
         }
       });
     }
@@ -69,7 +79,7 @@ const SongsPage = () => {
           <Text style={styles.artist}>{artists}</Text>
         </View>
       </View>
-      <TouchableOpacity style={styles.button} onPress={() => { }}>
+      <TouchableOpacity style={styles.button} onPress={() => { fetchNextSong }}>
         <Text style={styles.buttonText}>next song</Text>
       </TouchableOpacity>
       <Footer />
