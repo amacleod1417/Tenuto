@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import styles from '../../../styles';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { Audio } from 'expo-av';
+import styles from '../../../styles';
 
 const SongsPage = () => {
   const [sound, setSound] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
+  const [currentSong, setCurrentSong] = useState({ title: 'Song 1', artist: 'Artist 1' });
 
   async function playPauseSound() {
     if (sound) {
@@ -25,6 +25,14 @@ const SongsPage = () => {
       console.log('Playing Sound');
       await sound.playAsync();
       setIsPlaying(true);
+
+      // Set the playback status update callback
+      sound.setOnPlaybackStatusUpdate((status) => {
+        if (status.didJustFinish) {
+          console.log('Song has finished playing');
+          setIsPlaying(false);
+        }
+      });
     }
   }
 
@@ -39,10 +47,17 @@ const SongsPage = () => {
 
   return (
     <View style={styles.page}>
-      <Text style={styles.header}>Songs Page</Text>
-      <TouchableOpacity style={styles.button} onPress={playPauseSound}>
-        <Text style={styles.audioControl}>{isPlaying ? '⏸' : '▶️'}</Text>
-      </TouchableOpacity>
+      <Text style={styles.header}>here are some songs for you</Text>
+      <Text style={styles.subheader}>we hope you love them</Text>
+      <View style={styles.song}>
+        <TouchableOpacity style={styles.button} onPress={playPauseSound}>
+          <Text style={styles.audioControl}>{isPlaying ? '⏸' : '▶️'}</Text>
+        </TouchableOpacity>
+        <View style={styles.songDetails}>
+          <Text style={styles.title}>{currentSong.title}</Text>
+          <Text style={styles.artist}>{currentSong.artist}</Text>
+        </View>
+      </View>
     </View>
   );
 };

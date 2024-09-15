@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import styles from '../../../styles';
+import Footer from '../Footer/Footer';
 
 const ConnectPage = () => {
   const [spotifyPressed, setSpotifyPressed] = useState(false);
@@ -35,6 +36,7 @@ const ConnectPage = () => {
       >
         <Text style={styles.buttonText}>fitbit</Text>
       </TouchableOpacity>
+      <Footer />
     </View>
   );
 };

@@ -25,7 +25,13 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: "center",
-    fontSize: 36,
+    fontSize: 20,
+    color: "#465663"
+  },
+  artist: {
+    textAlign: "center",
+    fontSize: 16,
+    color: "#465663"
   },
   body: {
     display: "flex",
@@ -73,15 +79,50 @@ const styles = StyleSheet.create({
     color: "#465663",
     padding: 10,
   },
+  smallLogo: {
+    fontFamily: "LibreBaskerville_400Regular",
+    fontSize: 20,
+    color: "#465663",
+    padding: 10,
+    position: "absolute",
+    bottom: 30,
+    left: "40%",
+  },
   header: {
     fontFamily: "Poppins_700Regular",
     fontSize: 30,
     color: "#465663",
     paddingBottom: 20,
+    maxWidth: "80%",
+    textAlign: "center",
+  },
+  subheader: {
+    fontFamily: "Poppins_700Regular",
+    fontSize: 20,
+    color: "#465663",
+    paddingBottom: 20,
   },
   audioControl: {
-    fontSize: 50,
+    fontSize: 40,
     color: "#465663"
+  },
+  song: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    padding: 10,
+    borderColor: "#465663",
+    borderStyle: "solid",
+    backgroundColor: "#D1DADC",
+    borderRadius: 10,
+    height: 100,
+    width: "70%",
+    marginTop: 20,
+    marginBottom: 20,
+  },
+  songDetails: {
+    alignSelf: "center",
+    padding: 15,
   }
 });
 
