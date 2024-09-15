@@ -3,15 +3,20 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { Audio } from 'expo-av';
 import styles from '../../../styles';
 import Footer from '../Footer/Footer';
+import { getArtist } from '../../../convex/songs';
+import { api } from '../../../convex/_generated/api';
+import { useMutation, useQuery } from "convex/react";
+
 
 const SongsPage = () => {
   const [sound, setSound] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
-  const [currentSong, setCurrentSong] = useState({ title: 'WHY?', artist: 'Taylor Swift' });
+  const [currentSong, setCurrentSong] = useState('WHY?');
 
   // const songFilePath = (song) => {
   //   return await Audio.Sound.createAsync(require('./songs' + song.replace(/[^a-zA-Z]/g, '').toUpperCase() + '.mp3'));
   // }
+  const artists = useQuery(api.songs.getArtist, { name: currentSong }) || "";
 
 
   async function playPauseSound() {
@@ -26,7 +31,7 @@ const SongsPage = () => {
       setIsPlaying(!isPlaying);
     } else {
       console.log('Loading Sound');
-      const { sound } = await getSound(currentSong.title);
+      const { sound } = await getSound(currentSong);
       setSound(sound);
       console.log('Playing Sound');
       await sound.playAsync();
@@ -60,8 +65,8 @@ const SongsPage = () => {
           <Text style={styles.audioControl}>{isPlaying ? '⏸' : '▶️'}</Text>
         </TouchableOpacity>
         <View style={styles.songDetails}>
-          <Text style={styles.title}>{currentSong.title}</Text>
-          <Text style={styles.artist}>{currentSong.artist}</Text>
+          <Text style={styles.title}>{currentSong}</Text>
+          <Text style={styles.artist}>{artists}</Text>
         </View>
       </View>
       <TouchableOpacity style={styles.button} onPress={() => { }}>
