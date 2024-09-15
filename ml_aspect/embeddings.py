@@ -5,8 +5,7 @@ from pprint import pprint
 import os 
 from dotenv import load_dotenv
 from pinecone import Pinecone
-from heartrate_test import classify_emotional_state, fitbit_oauth2_authenticate, get_heart_rate_data, calculate_hrv
-import time
+from heartrate_test import classify_emotional_state, get_heart_rate_data, calculate_hrv
 
 # Setting up Cohere (obj) + Pinecone (obj + index)
 load_dotenv("HackTheNorthProj/ml_aspect/cohere_api_key.env")
@@ -38,44 +37,58 @@ print(df.head())
 # Now to create the textual input to be embedded, we exclude ones which are not as important, and increase the importance of ones
 # which we think are important, by repeating it more than once
 
-def create_embedding_text(row):
-    emotions_text = f"Emotions: {', '.join(row['emotions'])}. Emotions: {', '.join(row['emotions'])}. "  # Repeating to emphasize
-    valence_text = f"Valence: {row['valence']}."
-    name_text = f"Song Name: {row['name']}."
-    return emotions_text + valence_text + name_text
-
-# now to use this function for each row in the dataframe, axis -> 1, means going row by row, and adding this new column called
-# embedding_text for each of the rows
-df['embedding_text'] = df.apply(create_embedding_text, axis=1)
-
-print(df.head())
-
-
-# Now we actually embed each of these emebdding_text 's that we have generated for each row (i.e song)
 model_name = "embed-english-light-v3.0"
-input_type_embed = "search_document"
 
-embeds = co.embed(texts=list(df['embedding_text']),
-                  model=model_name,
-                  input_type=input_type_embed).embeddings
+# Check if embeddings already exist in Pinecone
+def check_existing_embeddings(index, namespace):
+    try:
+        # Perform a query to check if data exists in the specified namespace
+        existing_count = index.describe_index_stats()["namespaces"].get(namespace, {}).get("vector_count", 0)
+        return existing_count > 0
+    except Exception as e:
+        print(f"Error checking existing embeddings: {e}")
+        return False
+
+# Skip embedding generation if embeddings already exist
+if not check_existing_embeddings(index, "songs"):
+    def create_embedding_text(row):
+        emotions_text = f"Emotions: {', '.join(row['emotions'])}. Emotions: {', '.join(row['emotions'])}. "  # Repeating to emphasize
+        valence_text = f"Valence: {row['valence']}."
+        name_text = f"Song Name: {row['name']}."
+        return emotions_text + valence_text + name_text
+
+    # now to use this function for each row in the dataframe, axis -> 1, means going row by row, and adding this new column called
+    # embedding_text for each of the rows
+    df['embedding_text'] = df.apply(create_embedding_text, axis=1)
+
+    print(df.head())
 
 
-# now we upsert the vector embeddings into pinecone
-vectors = [
-    {
-        "id": str(song_id),  # Use song_id as the unique identifier
-        "values": embedding,  # The embedding vector
-        "metadata": {"name": df.loc[song_id, 'name']}  # Metadata with the song name
-    }
-    for song_id, embedding in zip(df.index, embeds)
-]
+    # Now we actually embed each of these emebdding_text 's that we have generated for each row (i.e song)
+    input_type_embed = "search_document"
 
-index.upsert(
-    vectors=vectors,
-    namespace="songs" 
-)
+    embeds = co.embed(texts=list(df['embedding_text']),
+                    model=model_name,
+                    input_type=input_type_embed).embeddings
 
-print("Embeddings successfully upserted to Pinecone.")
+
+    # now we upsert the vector embeddings into pinecone
+    vectors = [
+        {
+            "id": str(song_id),  # Use song_id as the unique identifier
+            "values": embedding,  # The embedding vector
+            "metadata": {"name": df.loc[song_id, 'name']}  # Metadata with the song name
+        }
+        for song_id, embedding in zip(df.index, embeds)
+    ]
+
+    index.upsert(
+        vectors=vectors,
+        namespace="songs" 
+    )
+    print("Embeddings successfully upserted to Pinecone.")
+else:
+    print("Embeddings already exist in Pinecone. Skipping embedding generation and upsert.")
 
 # Taking an example query just to see how good the retrival is currently
 query_text = "Emotions: Joy, Hopelessness, Anxiety. Emotions: Joy, Hopelessness, Anxiety"
@@ -115,6 +128,18 @@ for match in results['matches']:
 
 
 
+# Function to initialize emotional state
+def initialize_emotional_state():
+    heart_rate_data = get_heart_rate_data()
+    if heart_rate_data:
+        hrv = calculate_hrv(heart_rate_data)
+        emotional_state = classify_emotional_state(hrv)
+        print(f"Initial estimated emotional state is: {emotional_state}")
+        return emotional_state
+    else:
+        print("No heart rate data available. Cannot initialize emotional state.")
+        return None
+
 # Determine the starting index based on the emotional state
 def find_starting_point(results, emotional_state):
     mid_index = len(results) // 2  # Assume calm songs are around the midpoint
@@ -126,61 +151,59 @@ def find_starting_point(results, emotional_state):
 
 
 # Authenticate and fetch initial emotional state
-access_token = fitbit_oauth2_authenticate()
-heart_rate_data = get_heart_rate_data(access_token)
+def play_songs_based_on_emotional_state(results):
+    initial_emotional_state = initialize_emotional_state()
+    if not initial_emotional_state:
+        print("Emotional state initialization failed. Exiting playlist.")
+        return
+    
+    current_index = find_starting_point(results['matches'], initial_emotional_state)
 
-if heart_rate_data:
-    hrv = calculate_hrv(heart_rate_data)
-    initial_emotional_state = classify_emotional_state(hrv)
-    print(f"Initial estimated emotional state is: {initial_emotional_state}")
+    played_indices = set()
 
-# Determine the starting index based on the initial emotional state
-current_index = find_starting_point(results['matches'], initial_emotional_state)
+    # skip bool and the determination of whether the song has ended or not, hsould be the deciding factor, whether
+    # we should play the next song based on the current heartbeat
 
-played_indices = set()
+    if 0 <= current_index < len(results['matches']):
+        current_song = results['matches'][current_index]
 
-# skip bool and the determination of whether the song has ended or not, hsould be the deciding factor, whether
-# we should play the next song based on the current heartbeat
-
-while 0 <= current_index < len(results['matches']):
-    current_song = results['matches'][current_index]
-
-    # Check if the song has already been played
-    if current_index in played_indices:
-        current_index += 1  # Skip to the next song to avoid repetition
-        continue
-
-    # Mark the song as played
-    played_indices.add(current_index)
-
-    print(f"Playing Song: {current_song['metadata']['name']} with score {current_song['score']}")
-
-    # Re-evaluate emotional state after each song
-    heart_rate_data = get_heart_rate_data(access_token)
-    if heart_rate_data:
-        hrv = calculate_hrv(heart_rate_data)
-        current_emotional_state = classify_emotional_state(hrv)
-        print(f"Updated emotional state is: {current_emotional_state}")
-
-    # Adjust index based on current emotional state
-    if current_emotional_state == "Stressed or Anxious":
-        # Remain in the calm section, avoid moving too far back
-        if current_index > len(results['matches']) // 2:
-            current_index = len(results['matches']) // 2  # Reset to middle calm section
+        # Check if the song has already been played
+        if current_index in played_indices:
+            current_index += 1  # Skip to the next song to avoid repetition
         else:
-            current_index = min(current_index + 1, len(results['matches']) - 1)  # Small forward movement
+            # Mark the song as played
+            played_indices.add(current_index)
 
-    elif current_emotional_state == "Calm":
-        current_index += 1  # Progress slowly towards happier songs
+            print(f"Playing Song: {current_song['metadata']['name']} with score {current_song['score']}")
 
-    elif current_emotional_state == "Excited or Active":
-        current_index += 5  # Move further into happy/upbeat songs
+            # Re-evaluate emotional state after each song
+            heart_rate_data = get_heart_rate_data()
+            if heart_rate_data:
+                hrv = calculate_hrv(heart_rate_data)
+                current_emotional_state = classify_emotional_state(hrv)
+                print(f"Updated emotional state is: {current_emotional_state}")
 
-    else:
-        current_index += 1  # Neutral progress towards happiness
+            # Adjust index based on current emotional state
+            if current_emotional_state == "Stressed or Anxious":
+                # Remain in the calm section, avoid moving too far back
+                if current_index > len(results['matches']) // 2:
+                    current_index = len(results['matches']) // 2  # Reset to middle calm section
+                else:
+                    current_index = min(current_index + 1, len(results['matches']) - 1)  # Small forward movement
 
-    # Ensure index stays within bounds
-    current_index = min(current_index, len(results['matches']) - 1)
-    time.sleep()  # Simulate time between songs, the time in b/w here I think should be the length of song - 30sec
+            elif current_emotional_state == "Calm":
+                current_index += 1  # Progress slowly towards happier songs
 
-print("Finished playlist based on emotional adaptation.")
+            elif current_emotional_state == "Excited or Active":
+                current_index += 5  # Move further into happy/upbeat songs
+
+            else:
+                current_index += 1  # Neutral progress towards happiness
+
+            # Ensure index stays within bounds
+            current_index = min(current_index, len(results['matches']) - 1)
+
+    print("Finished playlist based on emotional adaptation.")
+
+if __name__ == "__main__":
+    play_songs_based_on_emotional_state(results)
