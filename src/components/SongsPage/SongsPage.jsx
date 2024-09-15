@@ -11,7 +11,7 @@ import { useMutation, useQuery } from "convex/react";
 const SongsPage = () => {
   const [sound, setSound] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
-  const [currentSong, setCurrentSong] = useState('WHY?');
+  const [currentSong, setCurrentSong] = useState('Sorry');
 
   // const songFilePath = (song) => {
   //   return await Audio.Sound.createAsync(require('./songs' + song.replace(/[^a-zA-Z]/g, '').toUpperCase() + '.mp3'));
