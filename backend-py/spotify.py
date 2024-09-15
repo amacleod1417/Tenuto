@@ -4,10 +4,14 @@ import base64
 from urllib.parse import urlencode, urlparse, parse_qs
 import webbrowser
 from http.server import BaseHTTPRequestHandler, HTTPServer
+import os
+from dotenv import load_dotenv
+
+load_dotenv('HackTheNorthProj/backend-py/spotify_api_key.env')
 
 # Spotify Credentials
-SPOTIFY_CLIENT_ID = 'c23f40c6d01e4b03855a68d27434e14b'
-SPOTIFY_CLIENT_SECRET = '38234dc4660c445e9f3ed8f0637460d2'
+spotify_client_id = os.getenv('SPOTIFY_CLIENT_ID')
+spotify_client_secret = os.getenv('SPOTIFY_CLIENT_SECRET')
 REDIRECT_URI = 'http://localhost:8888/callback'
 TOP_50_PLAYLIST_ID = '37i9dQZEVXbMDoHDwVN2tF'
 SCOPE = 'user-library-read'
@@ -29,7 +33,7 @@ class SpotifyAuthHandler(BaseHTTPRequestHandler):
 
 def get_spotify_auth_code():
     params = {
-        'client_id': SPOTIFY_CLIENT_ID,
+        'client_id': spotify_client_id,
         'response_type': 'code',
         'redirect_uri': REDIRECT_URI,
         'scope': SCOPE
@@ -44,7 +48,7 @@ def get_spotify_auth_code():
 
 #exchange authorization code for access token
 def get_access_token(auth_code):
-    auth_header = base64.b64encode(f"{SPOTIFY_CLIENT_ID}:{SPOTIFY_CLIENT_SECRET}".encode()).decode()
+    auth_header = base64.b64encode(f"{spotify_client_id}:{spotify_client_secret}".encode()).decode()
     
     payload = {
         'grant_type': 'authorization_code',
