@@ -46,6 +46,9 @@ const styles = StyleSheet.create({
     borderColor: "lightgrey",
     borderWidth: 1,
     borderRadius: 5,
+    height: 300,
+    width: 300,
+    color: "#465663",
   },
   buttonText: {
     color: "#465663",

@@ -19,6 +19,7 @@ import {
 } from "@expo-google-fonts/libre-baskerville";
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import PromptPage from "./src/components/PromptPage/PromptPage";
 
 // function InnerApp() {
 // Convex chat functionality
@@ -138,6 +139,7 @@ const App = () => {
       }}>
         <Stack.Screen name="Welcome" component={WelcomePage} />
         <Stack.Screen name="Connect" component={ConnectPage} />
+        <Stack.Screen name="Prompt" component={PromptPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );
