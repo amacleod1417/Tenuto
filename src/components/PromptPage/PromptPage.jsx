@@ -17,7 +17,7 @@ const PromptPage = () => {
 
   const handleSubmit = async () => {
     setSharedData(inputText2);
-    Alert.alert(inputText);
+    // Alert.alert(inputText);
     // try {
     //   console.log('Submitting inputText:', inputText);
 

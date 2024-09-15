@@ -14,67 +14,98 @@ const SongsPage = () => {
   const { inputText } = useContext(AppContext);
   console.log(inputText);
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const songs = ["Talk Talk", "Dancing in the Dark", "Sweet Disposition"];
+  const artists = ["Charli XCX", "Bruce Springsteen", "The Temper Trap"];
+
 
   const fetchNextSong = async () => {
-    try {
-      console.log('Fetching next song...');
+    // try {
+    //   console.log('Fetching next song...');
 
-      // Make a request to fetch the next song
-      const response = await fetch('http://10.36.224.117:5001/process_input', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ inputText }),
-      });
+    //   // Make a request to fetch the next song
+    //   const response = await fetch('http://10.36.224.117:5001/process_input', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({ inputText }),
+    //   });
 
-      console.log('Response status:', response.status);
-      console.log('Response headers:', response.headers);
+    //   console.log('Response status:', response.status);
+    //   console.log('Response headers:', response.headers);
 
-      // Get the response text to handle both JSON and plain text responses
-      const responseText = await response.text();
-      console.log('Response text:', responseText);
+    //   // Get the response text to handle both JSON and plain text responses
+    //   const responseText = await response.text();
+    //   console.log('Response text:', responseText);
 
-      // Try to parse the responseText to JSON
-      let data;
-      try {
-        data = JSON.parse(responseText);
-      } catch (parseError) {
-        console.error('Error parsing JSON:', parseError);
-        Alert.alert('Error', 'Failed to parse server response.');
-        return;
-      }
+    //   // Try to parse the responseText to JSON
+    //   let data;
+    //   try {
+    //     data = JSON.parse(responseText);
+    //   } catch (parseError) {
+    //     console.error('Error parsing JSON:', parseError);
+    //     Alert.alert('Error', 'Failed to parse server response.');
+    //     return;
+    //   }
 
-      // Handle the response based on the status
-      if (response.ok) {
-        // Extract song name using regex
-        const song = data.name || '';
-        const regex = /playing song: (.*?) with score of/;
-        const match = song.match(regex);
+    //   // Handle the response based on the status
+    //   if (response.ok) {
+    //     // Extract song name using regex
+    //     const song = data.name || '';
+    //     const regex = /playing song: (.*?) with score of/;
+    //     const match = song.match(regex);
 
-        if (match && match[1]) {
-          const songName = match[1];
-          setCurrentSong(songName);
-          console.log('Current song set to:', songName);
-        } else {
-          console.error('Could not extract song name from response:', song);
-          Alert.alert('Error', 'Failed to extract song name.');
-        }
-      } else {
-        console.error('Server responded with an error:', data.error || 'Unknown error');
-        Alert.alert('Error', data.error || 'Failed to fetch the next song.');
-      }
-    } catch (error) {
-      console.error('Error fetching next song:', error);
-      Alert.alert('Error', 'Failed to communicate with the server.');
-    }
+    //     if (match && match[1]) {
+    //       const songName = match[1];
+    //       setCurrentSong(songName);
+    //       console.log('Current song set to:', songName);
+    //     } else {
+    //       console.error('Could not extract song name from response:', song);
+    //       Alert.alert('Error', 'Failed to extract song name.');
+    //     }
+    //   } else {
+    //     console.error('Server responded with an error:', data.error || 'Unknown error');
+    //     Alert.alert('Error', data.error || 'Failed to fetch the next song.');
+    //   }
+    // } catch (error) {
+    //   console.error('Error fetching next song:', error);
+    //   Alert.alert('Error', 'Failed to communicate with the server.');
+    // }
+    const nextIndex = (currentIndex + 1) % songs.length;
+    setCurrentIndex(nextIndex);
+    setCurrentSong(songs[nextIndex]);
+    // const { sound } = await getSound(currentSong);
+    // setSound(sound);
+    // console.log('Playing Sound');
+    // await sound.playAsync();
+    // setIsPlaying(true);
   };
 
   useEffect(() => {
-    fetchNextSong();
-  }, []);
+    const playSong = async () => {
+      if (sound) {
+        await sound.unloadAsync();
+      }
+      const { sound: newSound } = await getSound(currentSong);
+      setSound(newSound);
+      console.log('Playing Sound');
+      console.log(currentSong);
+      await newSound.playAsync();
+      setIsPlaying(true);
+    };
 
-  const artists = currentSong ? useQuery(api.songs.getArtist, { name: currentSong }) : "";
+    if (currentSong) {
+      playSong();
+    }
+  }, [currentSong]);
+
+  // useEffect(() => {
+  //   fetchNextSong();
+  // }, []);
+
+  // const artists = currentSong ? useQuery(api.songs.getArtist, { name: currentSong }) : "";
 
   async function playPauseSound() {
     if (sound) {
@@ -123,11 +154,11 @@ const SongsPage = () => {
           <Text style={styles.audioControl}>{isPlaying ? '⏸' : '▶️'}</Text>
         </TouchableOpacity>
         <View style={styles.songDetails}>
-          <Text style={styles.title}>{currentSong}</Text>
-          <Text style={styles.artist}>{artists}</Text>
+          <Text style={styles.title}>{songs[currentIndex]}</Text>
+          <Text style={styles.artist}>{artists[currentIndex]}</Text>
         </View>
       </View>
-      <TouchableOpacity style={styles.button} onPress={() => { fetchNextSong }}>
+      <TouchableOpacity style={styles.button} onPress={fetchNextSong}>
         <Text style={styles.buttonText}>next song</Text>
       </TouchableOpacity>
       <Footer />
@@ -138,7 +169,7 @@ const SongsPage = () => {
 
 const getSound = async (songName) => {
   switch (songName) {
-    case "Dancing In the Dark":
+    case "Dancing in the Dark":
       return await Audio.Sound.createAsync(require('./DANCINGINTHEDARK.mp3'));
     case "Heaven Knows I'm Miserable Now - 2011 Remaster":
       return await Audio.Sound.createAsync(require('./HEAVENKNOWSIMMISERABLENOW2011REMASTER.mp3'));
