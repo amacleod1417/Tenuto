@@ -18,7 +18,7 @@ const SongsPage = () => {
   const fetchNextSong = async () => {
     try {
       console.log('Fetching next song...');
-      
+
       // Make a request to fetch the next song
       const response = await fetch('http://10.36.224.117:5001/process_input', {
         method: 'POST',
@@ -27,14 +27,14 @@ const SongsPage = () => {
         },
         body: JSON.stringify({ inputText }),
       });
-  
+
       console.log('Response status:', response.status);
       console.log('Response headers:', response.headers);
-  
+
       // Get the response text to handle both JSON and plain text responses
       const responseText = await response.text();
       console.log('Response text:', responseText);
-  
+
       // Try to parse the responseText to JSON
       let data;
       try {
@@ -44,14 +44,14 @@ const SongsPage = () => {
         Alert.alert('Error', 'Failed to parse server response.');
         return;
       }
-  
+
       // Handle the response based on the status
       if (response.ok) {
         // Extract song name using regex
         const song = data.name || '';
         const regex = /playing song: (.*?) with score of/;
         const match = song.match(regex);
-        
+
         if (match && match[1]) {
           const songName = match[1];
           setCurrentSong(songName);

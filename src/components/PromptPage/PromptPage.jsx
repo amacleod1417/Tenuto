@@ -11,51 +11,51 @@ const PromptPage = () => {
   const { inputText, setSharedData } = useContext(AppContext);
 
   const handleTextChange = (text) => {
-    setInputText(text);
+    setInputText2(text);
     setSharedData(text);
   };
 
   const handleSubmit = async () => {
     setSharedData(inputText2);
     Alert.alert(inputText);
-    try {
-      console.log('Submitting inputText:', inputText);
+    // try {
+    //   console.log('Submitting inputText:', inputText);
 
-      const response = await fetch('http://10.36.224.117:5001/process_input', {  // Use your Flask server IP
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ inputText }),
-      });
+    //   const response = await fetch('http://10.36.224.117:5001/process_input', {  // Use your Flask server IP
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({ inputText }),
+    //   });
 
-      console.log('Response status:', response.status);
-      console.log('Response headers:', response.headers);
+    //   console.log('Response status:', response.status);
+    //   console.log('Response headers:', response.headers);
 
-      const responseText = await response.text();
-      console.log('Response text:', responseText);
+    //   const responseText = await response.text();
+    //   console.log('Response text:', responseText);
 
-      // Try to parse the responseText
-      let data;
-      try {
-        data = JSON.parse(responseText);
-      } catch (parseError) {
-        console.error('Error parsing JSON:', parseError);
-        Alert.alert('Error', 'Failed to parse server response.');
-        return;
-      }
+    //   // Try to parse the responseText
+    //   let data;
+    //   try {
+    //     data = JSON.parse(responseText);
+    //   } catch (parseError) {
+    //     console.error('Error parsing JSON:', parseError);
+    //     Alert.alert('Error', 'Failed to parse server response.');
+    //     return;
+    //   }
 
-      if (response.ok) {
-        // Navigate to the Song screen or handle the received data as needed
-        console.log('Received data:', data);
-        // Pass data to the Song screen if needed
-      } else {
-        Alert.alert('Error', data.error || 'Failed to process input.');
-      }
-    } catch (error) {
-      console.error('Error submitting input:', error);
-      Alert.alert('Error', 'Failed to communicate with the server.');
-    }
+    //   if (response.ok) {
+    //     // Navigate to the Song screen or handle the received data as needed
+    //     console.log('Received data:', data);
+    //     // Pass data to the Song screen if needed
+    //   } else {
+    //     Alert.alert('Error', data.error || 'Failed to process input.');
+    //   }
+    // } catch (error) {
+    //   console.error('Error submitting input:', error);
+    //   Alert.alert('Error', 'Failed to communicate with the server.');
+    // }
     navigation.navigate('Song');
   };
 
@@ -71,8 +71,8 @@ const PromptPage = () => {
           <TextInput
             style={styles.input}
             placeholder="how are you, really?"
-            value={inputText2}
-            onChangeText={handleTextChange2}
+            value={inputText}
+            onChangeText={handleTextChange}
             multiline
             numberOfLines={10}
           />
