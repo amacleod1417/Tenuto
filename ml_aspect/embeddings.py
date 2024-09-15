@@ -5,7 +5,7 @@ from pprint import pprint
 import os 
 from dotenv import load_dotenv
 from pinecone import Pinecone
-from heartrate import classify_emotional_state, fitbit_oauth2_authenticate, get_heart_rate_data, calculate_hrv
+from heartrate_ import classify_emotional_state, fitbit_oauth2_authenticate, get_heart_rate_data, calculate_hrv
 import time
 
 # Setting up Cohere (obj) + Pinecone (obj + index)
