@@ -10,12 +10,17 @@ const PromptPage = () => {
   const [inputText2, setInputText2] = useState('');
   const { inputText, setSharedData } = useContext(AppContext);
 
+  const handleTextChange = (text) => {
+    setInputText(text);
+    setSharedData(text);
+  };
+
   const handleSubmit = async () => {
     setSharedData(inputText2);
     Alert.alert(inputText);
     try {
       console.log('Submitting inputText:', inputText);
-  
+
       const response = await fetch('http://10.36.224.117:5001/process_input', {  // Use your Flask server IP
         method: 'POST',
         headers: {
@@ -23,13 +28,13 @@ const PromptPage = () => {
         },
         body: JSON.stringify({ inputText }),
       });
-  
+
       console.log('Response status:', response.status);
       console.log('Response headers:', response.headers);
-  
+
       const responseText = await response.text();
       console.log('Response text:', responseText);
-  
+
       // Try to parse the responseText
       let data;
       try {
@@ -39,11 +44,11 @@ const PromptPage = () => {
         Alert.alert('Error', 'Failed to parse server response.');
         return;
       }
-  
+
       if (response.ok) {
         // Navigate to the Song screen or handle the received data as needed
         console.log('Received data:', data);
-          // Pass data to the Song screen if needed
+        // Pass data to the Song screen if needed
       } else {
         Alert.alert('Error', data.error || 'Failed to process input.');
       }
@@ -53,7 +58,7 @@ const PromptPage = () => {
     }
     navigation.navigate('Song');
   };
-  
+
 
   return (
     <KeyboardAvoidingView
@@ -67,7 +72,7 @@ const PromptPage = () => {
             style={styles.input}
             placeholder="how are you, really?"
             value={inputText2}
-            onChangeText={setInputText2}
+            onChangeText={handleTextChange2}
             multiline
             numberOfLines={10}
           />
