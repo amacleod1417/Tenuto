@@ -42,7 +42,7 @@ const PromptPage = () => {
       if (response.ok) {
         // Navigate to the Song screen or handle the received data as needed
         console.log('Received data:', data);
-        navigation.navigate('Song', { songInfo: data });  // Pass data to the Song screen if needed
+          // Pass data to the Song screen if needed
       } else {
         Alert.alert('Error', data.error || 'Failed to process input.');
       }
@@ -50,6 +50,7 @@ const PromptPage = () => {
       console.error('Error submitting input:', error);
       Alert.alert('Error', 'Failed to communicate with the server.');
     }
+    navigation.navigate('Song');
   };
   
 

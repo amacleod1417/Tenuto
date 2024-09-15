@@ -5,6 +5,7 @@ from heartrate_test import classify_emotional_state, get_heart_rate_data, calcul
 from pathlib import Path
 from dotenv import load_dotenv
 
+
 # Load API keys from environment
 cohere_api_key = os.getenv('COHERE_API_KEY')
 
@@ -19,6 +20,10 @@ load_dotenv(dotenv_path=cohere_env_path)
 # Initialize Cohere client
 co = cohere.Client(api_key=cohere_api_key)
 model_name = "embed-english-light-v3.0"
+
+# Global state variables for tracking song playback
+current_index = 0
+played_indices = set()
 
 # Function to generate formatted query text using Cohere's generate
 def generate_query_text(input_text):
@@ -52,46 +57,69 @@ def find_starting_point(global_results, emotional_state):
 
 # Main function to play songs based on emotional state and action
 def play_songs_based_on_emotional_state(results, action, input_text=None):
-    current_index = 0
-    played_indices = set()
+    global current_index, played_indices
+
+    print(f"Action: {action}, Current Index: {current_index}, Played Indices: {played_indices}")
 
     if action == 'start':  # Initial call to start the playlist
         initial_emotional_state = initialize_emotional_state()
+        print(f"Initial estimated emotional state is: {initial_emotional_state}")
         if not initial_emotional_state:
+            print("Emotional state not determined, exiting.")
             return None
         current_index = find_starting_point(results['matches'], initial_emotional_state)
+        print(f"Starting index based on emotional state: {current_index}")
 
-    if action in ['skip', 'end'] and 0 <= current_index < len(results['matches']):
+    if 0 <= current_index < len(results['matches']):
+        # Skip played songs
         while current_index in played_indices and current_index < len(results['matches']) - 1:
+            print(f"Skipping already played index: {current_index}")
             current_index += 1
 
+        # Check if the index is valid after skipping
+        if current_index >= len(results['matches']):
+            print(f"No more songs available after skipping, current index: {current_index}")
+            return None
+
+        # Mark the song as played
         played_indices.add(current_index)
+        print(f"Marked index {current_index} as played.")
+
         current_song = results['matches'][current_index]
+
         current_song_info = {
             "name": current_song['metadata']['name'],
             "score": current_song['score']
         }
 
+        # Re-evaluate emotional state after each song
         heart_rate_data = get_heart_rate_data()
         if heart_rate_data:
             hrv = calculate_hrv(heart_rate_data)
             current_emotional_state = classify_emotional_state(hrv)
             print(f"Updated emotional state is: {current_emotional_state}")
 
+            # Adjust index based on current emotional state
             if current_emotional_state == "Stressed or Anxious":
                 if current_index > len(results['matches']) // 2:
                     current_index = len(results['matches']) // 2
                 else:
                     current_index = min(current_index + 1, len(results['matches']) - 1)
+
             elif current_emotional_state == "Calm":
                 current_index += 1
+
             elif current_emotional_state == "Excited or Active":
                 current_index += 5
+
             else:
                 current_index += 1
 
+        # Ensure index stays within bounds
         current_index = min(current_index, len(results['matches']) - 1)
-        print(f"Playing Song: {current_song['metadata']['name']} with score {current_song['score']}")
+
+        print(f"Playing Song: {current_song_info['name']} with score {current_song_info['score']}")
         return current_song_info
 
-    return None  # Symbolizes the playlist getting over
+    print("No song recommendation found or all songs are played.")
+    return None  # symbolizes the playlist getting over

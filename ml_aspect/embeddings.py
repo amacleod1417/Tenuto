@@ -5,7 +5,8 @@ import os
 from dotenv import load_dotenv
 from pinecone import Pinecone
 from pathlib import Path
-from utils import play_songs_based_on_emotional_state, initialize_emotional_state 
+from utils import play_songs_based_on_emotional_state, initialize_emotional_state, find_starting_point
+
 
 # # Setting up Cohere (obj) + Pinecone (obj + index)
 # load_dotenv("HackTheNorthProj/ml_aspect/cohere_api_key.env")
@@ -104,45 +105,15 @@ def generate_and_upsert_embeddings():
     else:
         print("Embeddings already exist in Pinecone. Skipping embedding generation and upsert.")
 
-# # Taking an example query just to see how good the retrival is currently
-# query_text = "Emotions: Joy, Hopelessness, Anxiety. Emotions: Joy, Hopelessness, Anxiety"
-
-# # embedding the query, so similarity between query can take place with the vector emeddings in the pinecone vector store
-
-# query_embedding = co.embed(
-#     texts=[query_text],
-#     model=model_name,
-#     input_type="search_query"  # Specify embeddings for search queries
-# ).embeddings[0]
-
-# print(query_embedding)
-
-# # querying finally taking place using pinecone
-
-# results = index.query(
-#     namespace="songs",
-#     vector=query_embedding,
-#     top_k=100,
-#     include_values=True,
-#     include_metadata=True,
-# )
-
-# print(results)
-# the obj it returns is in this format
-# Returns:
-# {'matches': [{'id': 'B',
-#               'metadata': {'genre': 'documentary'},
-#               'score': 0.0800000429,
-#               'values': []}],
-#  'namespace': 'example-namespace'}
-
-# Displaying the retrieved results
-# for match in results['matches']:
-#     print(f"Matched Song: {match['metadata']['name']} with score {match['score']}")
 
 def process_results_from_api(results):
     if results and 'matches' in results:
+        print("Complete List of Retrieved Songs:")
+        for match in results['matches']:
+            print(f"Song: {match['metadata']['name']} with score {match['score']}")  # Print each song in the list
+
         song_info = play_songs_based_on_emotional_state(results, 'start')
+        print("Song info is", song_info)
         if song_info:
             print(f"Playing Song: {song_info['name']} with score {song_info['score']}")
         else:
@@ -151,8 +122,4 @@ def process_results_from_api(results):
         print("Results are empty or improperly formatted. Ensure the API endpoint is called correctly.")
 
 if __name__ == "__main__":
-    # if global_results:  # Ensure global_results is available
-    #     play_songs_based_on_emotional_state(global_results, 'start')
-    # else:
-    #     print("Global results not available. Ensure process_input API endpoint is called first.")
     generate_and_upsert_embeddings()

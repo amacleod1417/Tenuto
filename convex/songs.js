@@ -38,7 +38,7 @@ export const getArtist = query({
       .query("songs")
       .filter((q) => q.eq(q.field("name"), args.name))
       .unique();
-    return song.artists;
+    return 'hi';
   },
 });
 

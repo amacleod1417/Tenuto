@@ -52,6 +52,11 @@ def process_input():
             include_metadata=True
         )
 
+        # Log the complete list of results
+        print("Received Results from Pinecone:")
+        for match in global_results['matches']:
+            print(f"Song: {match['metadata']['name']} with score {match['score']}")
+
        # Process the results from the API using embeddings.py functionality
         process_results_from_api(global_results)
 
