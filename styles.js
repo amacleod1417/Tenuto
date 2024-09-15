@@ -24,14 +24,15 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   title: {
-    textAlign: "center",
+    textAlign: "right",
     fontSize: 20,
-    color: "#465663"
+    color: "#465663",
+    // maxWidth: "95%",
   },
   artist: {
-    textAlign: "center",
+    textAlign: "right",
     fontSize: 16,
-    color: "#465663"
+    color: "#465663",
   },
   body: {
     display: "flex",
@@ -116,13 +117,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#D1DADC",
     borderRadius: 10,
     height: 100,
-    width: "70%",
+    width: "80%",
     marginTop: 20,
     marginBottom: 20,
+    padding: 10,
   },
   songDetails: {
     alignSelf: "center",
-    padding: 15,
+    paddingLeft: 10,
+    paddingRight: 10,
+    flexShrink: 1,
   }
 });
 

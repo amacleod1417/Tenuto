@@ -2,11 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Audio } from 'expo-av';
 import styles from '../../../styles';
+import Footer from '../Footer/Footer';
 
 const SongsPage = () => {
   const [sound, setSound] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
-  const [currentSong, setCurrentSong] = useState({ title: 'Song 1', artist: 'Artist 1' });
+  const [currentSong, setCurrentSong] = useState({ title: 'Taylor\s version from the vault ....', artist: 'Taylor Swift' });
+
+  const parseSongTitle = (song) => {
+    return song.replace(/[^a-zA-Z]/g, '').toUpperCase();
+  }
 
   async function playPauseSound() {
     if (sound) {
@@ -58,6 +63,10 @@ const SongsPage = () => {
           <Text style={styles.artist}>{currentSong.artist}</Text>
         </View>
       </View>
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Welcome')}>
+        <Text style={styles.buttonText}>next song</Text>
+      </TouchableOpacity>
+      <Footer />
     </View>
   );
 };
