@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import { Audio } from 'expo-av';
 import styles from '../../../styles';
 import Footer from '../Footer/Footer';
@@ -17,15 +17,55 @@ const SongsPage = () => {
 
   const fetchNextSong = async () => {
     try {
-      const response = await fetch('https://your-api-endpoint.com/next-song');
-      const data = await response.json();
-      const song = data.name;
-      const regex = /playing song: (.*?) with score of/;
-      const match = song.match(regex);
-      const songName = match[1];
-      setCurrentSong(songName);
+      console.log('Fetching next song...');
+      
+      // Make a request to fetch the next song
+      const response = await fetch('http://10.36.224.117:5001/process_input', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      console.log('Response status:', response.status);
+      console.log('Response headers:', response.headers);
+  
+      // Get the response text to handle both JSON and plain text responses
+      const responseText = await response.text();
+      console.log('Response text:', responseText);
+  
+      // Try to parse the responseText to JSON
+      let data;
+      try {
+        data = JSON.parse(responseText);
+      } catch (parseError) {
+        console.error('Error parsing JSON:', parseError);
+        Alert.alert('Error', 'Failed to parse server response.');
+        return;
+      }
+  
+      // Handle the response based on the status
+      if (response.ok) {
+        // Extract song name using regex
+        const song = data.name || '';
+        const regex = /playing song: (.*?) with score of/;
+        const match = song.match(regex);
+        
+        if (match && match[1]) {
+          const songName = match[1];
+          setCurrentSong(songName);
+          console.log('Current song set to:', songName);
+        } else {
+          console.error('Could not extract song name from response:', song);
+          Alert.alert('Error', 'Failed to extract song name.');
+        }
+      } else {
+        console.error('Server responded with an error:', data.error || 'Unknown error');
+        Alert.alert('Error', data.error || 'Failed to fetch the next song.');
+      }
     } catch (error) {
       console.error('Error fetching next song:', error);
+      Alert.alert('Error', 'Failed to communicate with the server.');
     }
   };
 
