@@ -2,8 +2,16 @@ import requests
 from datetime import datetime
 import os
 from dotenv import load_dotenv
+from pathlib import Path
 
-load_dotenv('HackTheNorthProj/ml_aspect/fitbit_api_key.env')
+# Get the directory of the current script
+script_dir = Path(__file__).resolve().parent
+
+# Construct the path to the .env file relative to the script directory
+env_path = script_dir / 'fitbit_api_key.env'
+
+# Load the .env file
+load_dotenv(dotenv_path=env_path)
 
 # Hardcoded access token for your specific Fitbit account
 access_token = os.getenv("ACCESS_TOKEN")
