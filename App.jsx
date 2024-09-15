@@ -20,6 +20,7 @@ import {
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import PromptPage from "./src/components/PromptPage/PromptPage";
+import SongsPage from "./src/components/SongsPage/SongsPage";
 
 // function InnerApp() {
 // Convex chat functionality
@@ -140,6 +141,7 @@ const App = () => {
         <Stack.Screen name="Welcome" component={WelcomePage} />
         <Stack.Screen name="Connect" component={ConnectPage} />
         <Stack.Screen name="Prompt" component={PromptPage} />
+        <Stack.Screen name="Song" component={SongsPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -79,6 +79,10 @@ const styles = StyleSheet.create({
     color: "#465663",
     paddingBottom: 20,
   },
+  audioControl: {
+    fontSize: 50,
+    color: "#465663"
+  }
 });
 
 export default styles;
