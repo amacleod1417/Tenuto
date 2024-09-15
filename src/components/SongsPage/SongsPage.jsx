@@ -18,9 +18,9 @@ const SongsPage = () => {
       const data = await response.json();
       const song = data.name;
       const regex = /playing song: (.*?) with score of/;
-      const match = str.match(regex);
+      const match = song.match(regex);
       const songName = match[1];
-      setCurrentSong(data.name);
+      setCurrentSong(songName);
     } catch (error) {
       console.error('Error fetching next song:', error);
     }
