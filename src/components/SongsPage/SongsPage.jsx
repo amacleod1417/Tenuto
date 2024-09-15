@@ -20,7 +20,7 @@ const SongsPage = () => {
       setIsPlaying(!isPlaying);
     } else {
       console.log('Loading Sound');
-      const { sound } = await Audio.Sound.createAsync(require('./party.mp3'));
+      const { sound } = await Audio.Sound.createAsync(require('./songs/party.mp3'));
       setSound(sound);
       console.log('Playing Sound');
       await sound.playAsync();

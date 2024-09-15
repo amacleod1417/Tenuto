@@ -21,7 +21,7 @@ const ConnectPage = () => {
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
-          Alert.alert('spotify pressed');
+          // Alert.alert('spotify pressed');
           setSpotifyPressed(true);
         }}
       >
@@ -30,7 +30,7 @@ const ConnectPage = () => {
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
-          Alert.alert('fitbit pressed');
+          Alert.alert('All connections successful');
           setFitbitPressed(true);
         }}
       >
