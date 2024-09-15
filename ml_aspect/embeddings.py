@@ -5,7 +5,7 @@ from pprint import pprint
 import os 
 from dotenv import load_dotenv
 from pinecone import Pinecone
-from heartrate_ import classify_emotional_state, fitbit_oauth2_authenticate, get_heart_rate_data, calculate_hrv
+from heartrate_test import classify_emotional_state, fitbit_oauth2_authenticate, get_heart_rate_data, calculate_hrv
 import time
 
 # Setting up Cohere (obj) + Pinecone (obj + index)
@@ -126,7 +126,7 @@ def find_starting_point(results, emotional_state):
 
 
 # Authenticate and fetch initial emotional state
-access_token, _ = fitbit_oauth2_authenticate()
+access_token = fitbit_oauth2_authenticate()
 heart_rate_data = get_heart_rate_data(access_token)
 
 if heart_rate_data:
