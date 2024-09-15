@@ -33,9 +33,9 @@ def calculate_hrv(heart_rate_data):
 
 # Classify emotional state based on HRV
 def classify_emotional_state(hrv):
-    if hrv < 10:
+    if hrv < 0.5:
         return "Stressed or Anxious"
-    elif 10 <= hrv < 20:
+    elif 0.5 <= hrv < 1:
         return "Calm"
     else:
         return "Excited or Active"
