@@ -126,6 +126,9 @@ print(results)
 for match in results['matches']:
     print(f"Matched Song: {match['metadata']['name']} with score {match['score']}")
 
+# Initialize global state
+current_index = 0
+played_indices = set()
 
 
 # Function to initialize emotional state
@@ -149,61 +152,96 @@ def find_starting_point(results, emotional_state):
         start_index = 0
     return start_index
 
+# Function to generate formatted query text using Cohere's generate
+def generate_query_text(input_text):
+    response = co.generate(
+        prompt=f"Generate a query in the format 'Emotions: emotion1, emotion2, emotion3. Emotions: emotion1, emotion2, emotion3' based on the following input:\n\n{input_text}",
+    )
+    # Extract the generated text
+    generated_text = response.generations[0].text.strip()
+    print(f"Generated Query Text: {generated_text}")
+    return generated_text
+
 
 # Authenticate and fetch initial emotional state
-def play_songs_based_on_emotional_state(results):
-    initial_emotional_state = initialize_emotional_state()
-    if not initial_emotional_state:
-        print("Emotional state initialization failed. Exiting playlist.")
-        return
-    
-    current_index = find_starting_point(results['matches'], initial_emotional_state)
+def play_songs_based_on_emotional_state(results, action, input_text=None):
+    global current_index, played_indices
 
-    played_indices = set()
+    if action == 'start':  # Initial call to start the playlist
+        initial_emotional_state = initialize_emotional_state()
+        if not initial_emotional_state:
+            return None
+        current_index = find_starting_point(results['matches'], initial_emotional_state)
+
+    # Modify the query based on input_text if provided
+    if input_text:
+        query_text = generate_query_text(input_text)  # Generate formatted query text
+        query_embedding = co.embed(
+            texts=[query_text],
+            model=model_name,
+            input_type="search_query"
+        ).embeddings[0]
+
+        results = index.query(
+                namespace="songs",
+                vector=query_embedding,
+                top_k=100,
+                include_values=True,
+                include_metadata=True,
+            )
+        
+        print(f"Updated results based on input text: {input_text}")
+
 
     # skip bool and the determination of whether the song has ended or not, hsould be the deciding factor, whether
     # we should play the next song based on the current heartbeat
 
-    if 0 <= current_index < len(results['matches']):
+    if action in ['skip', 'end'] and 0 <= current_index < len(results['matches']):
         current_song = results['matches'][current_index]
 
-        # Check if the song has already been played
-        if current_index in played_indices:
-            current_index += 1  # Skip to the next song to avoid repetition
-        else:
-            # Mark the song as played
-            played_indices.add(current_index)
+         # Skip played songs
+        while current_index in played_indices and current_index < len(results['matches']) - 1:
+            current_index += 1
 
-            print(f"Playing Song: {current_song['metadata']['name']} with score {current_song['score']}")
+        # Mark the song as played
+        played_indices.add(current_index)
 
-            # Re-evaluate emotional state after each song
-            heart_rate_data = get_heart_rate_data()
-            if heart_rate_data:
-                hrv = calculate_hrv(heart_rate_data)
-                current_emotional_state = classify_emotional_state(hrv)
-                print(f"Updated emotional state is: {current_emotional_state}")
+        current_song_info = {
+            "name": current_song['metadata']['name'],
+            "score": current_song['score']
+        }
 
-            # Adjust index based on current emotional state
-            if current_emotional_state == "Stressed or Anxious":
-                # Remain in the calm section, avoid moving too far back
-                if current_index > len(results['matches']) // 2:
-                    current_index = len(results['matches']) // 2  # Reset to middle calm section
-                else:
-                    current_index = min(current_index + 1, len(results['matches']) - 1)  # Small forward movement
+        # Re-evaluate emotional state after each song
+        heart_rate_data = get_heart_rate_data()
+        if heart_rate_data:
+            hrv = calculate_hrv(heart_rate_data)
+            current_emotional_state = classify_emotional_state(hrv)
+            print(f"Updated emotional state is: {current_emotional_state}")
 
-            elif current_emotional_state == "Calm":
-                current_index += 1  # Progress slowly towards happier songs
-
-            elif current_emotional_state == "Excited or Active":
-                current_index += 5  # Move further into happy/upbeat songs
-
+        # Adjust index based on current emotional state
+        if current_emotional_state == "Stressed or Anxious":
+            # Remain in the calm section, avoid moving too far back
+            if current_index > len(results['matches']) // 2:
+                current_index = len(results['matches']) // 2  # Reset to middle calm section
             else:
-                current_index += 1  # Neutral progress towards happiness
+                current_index = min(current_index + 1, len(results['matches']) - 1)  # Small forward movement
 
-            # Ensure index stays within bounds
-            current_index = min(current_index, len(results['matches']) - 1)
+        elif current_emotional_state == "Calm":
+            current_index += 1  # Progress slowly towards happier songs
 
-    print("Finished playlist based on emotional adaptation.")
+        elif current_emotional_state == "Excited or Active":
+            current_index += 5  # Move further into happy/upbeat songs
+
+        else:
+            current_index += 1  # Neutral progress towards happiness
+
+        # Ensure index stays within bounds
+        current_index = min(current_index, len(results['matches']) - 1)
+
+        print(f"Playing Song: {current_song['metadata']['name']} with score {current_song['score']}")
+        return current_song_info
+
+    return None # symbolizes the playlist getting over 
 
 if __name__ == "__main__":
-    play_songs_based_on_emotional_state(results)
+    play_songs_based_on_emotional_state(results, 'start')
