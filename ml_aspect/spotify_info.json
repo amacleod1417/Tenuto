@@ -1,90 +1,402 @@
 {
-    "2plbrEY59IikOBgBGLjaoe": {
-        "name": "Die With A Smile",
-        "artists": "Lady Gaga, Bruno Mars",
-        "danceability": 0.521,
-        "energy": 0.592,
-        "tempo": 157.969,
-        "valence": 0.535
+    "7FwBtcecmlpc1sLySPXeGE": {
+        "name": "Dancing In the Dark",
+        "artists": "Bruce Springsteen",
+        "danceability": 0.527,
+        "energy": 0.942,
+        "tempo": 148.723,
+        "valence": 0.495
     },
-    "6dOtVTDdiauQNBQEDOtlAB": {
-        "name": "BIRDS OF A FEATHER",
-        "artists": "Billie Eilish",
+    "1xaTREM89RbIxkcjlpf4Uw": {
+        "name": "Heaven Knows I'm Miserable Now - 2011 Remaster",
+        "artists": "The Smiths",
+        "danceability": 0.609,
+        "energy": 0.759,
+        "tempo": 114.045,
+        "valence": 0.774
+    },
+    "6uvh0In7u1Xn4HgxOfAn8O": {
+        "name": "Matilda",
+        "artists": "Harry Styles",
+        "danceability": 0.507,
+        "energy": 0.294,
+        "tempo": 114.199,
+        "valence": 0.386
+    },
+    "0msrDPXxZpts4FRnoX0bFr": {
+        "name": "Monks",
+        "artists": "Frank Ocean",
         "danceability": 0.747,
-        "energy": 0.507,
-        "tempo": 104.978,
-        "valence": 0.438
+        "energy": 0.758,
+        "tempo": 102.02,
+        "valence": 0.601
     },
-    "2cZOYofOX4d6g0OXxkaIjA": {
-        "name": "ALL RED",
-        "artists": "Playboi Carti",
-        "danceability": 0.76,
-        "energy": 0.663,
-        "tempo": 143.082,
+    "6bUAaVkmBr9xrsWkeTLu03": {
+        "name": "Sweet Disposition",
+        "artists": "The Temper Trap",
+        "danceability": 0.53,
+        "energy": 0.801,
+        "tempo": 129.109,
+        "valence": 0.314
+    },
+    "1TEL6MlSSVLSdhOSddidlJ": {
+        "name": "needy",
+        "artists": "Ariana Grande",
+        "danceability": 0.647,
+        "energy": 0.309,
+        "tempo": 87.046,
+        "valence": 0.195
+    },
+    "6ck0CGe9BN9gW5oMmzbhs9": {
+        "name": "Don't Change",
+        "artists": "INXS",
+        "danceability": 0.276,
+        "energy": 0.883,
+        "tempo": 164.052,
+        "valence": 0.164
+    },
+    "62fqMvguJbsSs9HKhhRfuS": {
+        "name": "Talk talk",
+        "artists": "Charli xcx",
+        "danceability": 0.579,
+        "energy": 0.892,
+        "tempo": 130.146,
+        "valence": 0.639
+    },
+    "4u7vj352S98d9iA7ac1EVG": {
+        "name": "Alesis",
+        "artists": "Mk.gee",
+        "danceability": 0.833,
+        "energy": 0.687,
+        "tempo": 108.075,
+        "valence": 0.418
+    },
+    "78qHOMYr8nDUd4fIHS5J7k": {
+        "name": "Check It Out",
+        "artists": "will.i.am, Nicki Minaj",
+        "danceability": 0.848,
+        "energy": 0.694,
+        "tempo": 130.075,
+        "valence": 0.728
+    },
+    "4CSI3i12ju7A4RfW3DhD0I": {
+        "name": "My Name on a T-Shirt",
+        "artists": "Odie Leigh",
+        "danceability": 0.657,
+        "energy": 0.599,
+        "tempo": 133.077,
+        "valence": 0.44
+    },
+    "0Gt4nGWoATcQFL38a1NRao": {
+        "name": "West Savannah (feat. SZA)",
+        "artists": "Isaiah Rashad, SZA",
+        "danceability": 0.652,
+        "energy": 0.906,
+        "tempo": 125.103,
+        "valence": 0.559
+    },
+    "3O5osWf1rSoKMwe6E9ZaXP": {
+        "name": "evermore (feat. Bon Iver)",
+        "artists": "Taylor Swift, Bon Iver",
+        "danceability": 0.39,
+        "energy": 0.27,
+        "tempo": 125.177,
+        "valence": 0.32
+    },
+    "2v1ivOOsgn64g5OywuH55L": {
+        "name": "The Smallest Man Who Ever Lived",
+        "artists": "Taylor Swift",
+        "danceability": 0.426,
+        "energy": 0.41,
+        "tempo": 142.377,
+        "valence": 0.263
+    },
+    "5FwlCxV2Q4xjTywLsD3Kxe": {
+        "name": "Anyway",
+        "artists": "Noah Kahan",
+        "danceability": 0.65,
+        "energy": 0.156,
+        "tempo": 133.919,
+        "valence": 0.243
+    },
+    "3my33XXLpYUzVEeLOyftV2": {
+        "name": "Frisky",
+        "artists": "Dominic Fike",
+        "danceability": 0.858,
+        "energy": 0.48,
+        "tempo": 97.009,
+        "valence": 0.813
+    },
+    "6TlZSSNZd397eYRzbu5SaT": {
+        "name": "Please End Me",
+        "artists": "Paleface Swiss",
+        "danceability": 0.34,
+        "energy": 0.972,
+        "tempo": 92.502,
+        "valence": 0.267
+    },
+    "09CtPGIpYB4BrO8qb1RGsF": {
+        "name": "Sorry",
+        "artists": "Justin Bieber",
+        "danceability": 0.655,
+        "energy": 0.76,
+        "tempo": 99.947,
+        "valence": 0.409
+    },
+    "1hjRhYpWyqDpPahmSlUTlc": {
+        "name": "Style (Taylor's Version)",
+        "artists": "Taylor Swift",
+        "danceability": 0.514,
+        "energy": 0.821,
+        "tempo": 94.884,
+        "valence": 0.298
+    },
+    "5sdQOyqq2IDhvmx2lHOpwd": {
+        "name": "Super Shy",
+        "artists": "NewJeans",
+        "danceability": 0.776,
+        "energy": 0.817,
+        "tempo": 149.921,
+        "valence": 0.515
+    },
+    "2kSb3wYSOV996xA2NSmpck": {
+        "name": "Melting",
+        "artists": "Kali Uchis",
+        "danceability": 0.574,
+        "energy": 0.479,
+        "tempo": 115.263,
+        "valence": 0.303
+    },
+    "4ZaRg5Sf4TKr0YcFRLh7QJ": {
+        "name": "Love Affair",
+        "artists": "UMI",
+        "danceability": 0.613,
+        "energy": 0.488,
+        "tempo": 172.076,
+        "valence": 0.183
+    },
+    "4riDfclV7kPDT9D58FpmHd": {
+        "name": "Some",
+        "artists": "Steve Lacy",
+        "danceability": 0.784,
+        "energy": 0.554,
+        "tempo": 104.01,
+        "valence": 0.634
+    },
+    "06fIKQURUEsv8g6K31kCny": {
+        "name": "threethou - latenight",
+        "artists": "Justend, Count Draco, loe4t, tomcbumpz, Huck",
+        "danceability": 0.335,
+        "energy": 0.579,
+        "tempo": 78.599,
+        "valence": 0.755
+    },
+    "48Qes8IUekSZpcNDQgYzUX": {
+        "name": "True Blue",
+        "artists": "boygenius, Julien Baker, Phoebe Bridgers, Lucy Dacus",
+        "danceability": 0.472,
+        "energy": 0.774,
+        "tempo": 146.175,
+        "valence": 0.36
+    },
+    "1Iq8oo9XkmmvCQiGOfORiz": {
+        "name": "Is It Over Now? (Taylor's Version) (From The Vault)",
+        "artists": "Taylor Swift",
+        "danceability": 0.599,
+        "energy": 0.651,
+        "tempo": 100.001,
+        "valence": 0.153
+    },
+    "5fEB6ZmVkg63GZg9qO86jh": {
+        "name": "Break from Toronto",
+        "artists": "PARTYNEXTDOOR",
+        "danceability": 0.595,
+        "energy": 0.678,
+        "tempo": 117.067,
+        "valence": 0.259
+    },
+    "5RG1HRQocUAafoCrGd9lY5": {
+        "name": "LIMB",
+        "artists": "Planet Giza",
+        "danceability": 0.467,
+        "energy": 0.272,
+        "tempo": 87.262,
+        "valence": 0.372
+    },
+    "2iwLygOHE2YStc23isxS3b": {
+        "name": "terms (feat. Dominic Fike & Denzel Curry)",
+        "artists": "slowthai, Dominic Fike, Denzel Curry",
+        "danceability": 0.727,
+        "energy": 0.578,
+        "tempo": 140.044,
+        "valence": 0.238
+    },
+    "07gbjddL6AZ4PYKaviVMOQ": {
+        "name": "Black Hole",
+        "artists": "boygenius",
+        "danceability": 0.719,
+        "energy": 0.451,
+        "tempo": 111.959,
+        "valence": 0.307
+    },
+    "4Z59a9hIn8EMsni3OiqGso": {
+        "name": "Think Fast (feat. Weezer)",
+        "artists": "Dominic Fike, Weezer",
+        "danceability": 0.538,
+        "energy": 0.452,
+        "tempo": 168.102,
         "valence": 0.209
     },
-    "5G2f63n7IPVPPjfNIGih7Q": {
-        "name": "Taste",
-        "artists": "Sabrina Carpenter",
-        "danceability": 0.674,
-        "energy": 0.907,
-        "tempo": 112.964,
-        "valence": 0.721
+    "6AzCBeiDuUXGXjznBufswB": {
+        "name": "Stockholm Syndrome",
+        "artists": "One Direction",
+        "danceability": 0.678,
+        "energy": 0.933,
+        "tempo": 120.572,
+        "valence": 0.336
     },
-    "2qSkIjg1o9h3YT9RAgYN75": {
-        "name": "Espresso",
-        "artists": "Sabrina Carpenter",
-        "danceability": 0.701,
-        "energy": 0.76,
-        "tempo": 103.969,
-        "valence": 0.69
+    "0Z5ok0QLLttAKsujOZYOXf": {
+        "name": "Chasing Pavements",
+        "artists": "Adele",
+        "danceability": 0.616,
+        "energy": 0.47,
+        "tempo": 80.03,
+        "valence": 0.325
     },
-    "4xdBrk0nFZaP54vvZj0yx7": {
-        "name": "HOT TO GO!",
-        "artists": "Chappell Roan",
-        "danceability": 0.742,
-        "energy": 0.757,
-        "tempo": 139.982,
-        "valence": 0.957
+    "35r28RDot7nPE7y9K9H7l0": {
+        "name": "Feeling Whitney",
+        "artists": "Post Malone",
+        "danceability": 0.412,
+        "energy": 0.227,
+        "tempo": 80.111,
+        "valence": 0.227
     },
-    "51ZQ1vr10ffzbwIjDCwqm4": {
-        "name": "we can't be friends (wait for your love)",
-        "artists": "Ariana Grande",
-        "danceability": 0.645,
-        "energy": 0.646,
-        "tempo": 115.842,
-        "valence": 0.295
+    "4H7WNRErSbONkM06blBoGc": {
+        "name": "Stay",
+        "artists": "Post Malone",
+        "danceability": 0.506,
+        "energy": 0.48,
+        "tempo": 86.042,
+        "valence": 0.351
     },
-    "2QjOHCTQ1Jl3zawyYOpxh6": {
-        "name": "Sweater Weather",
-        "artists": "The Neighbourhood",
-        "danceability": 0.612,
-        "energy": 0.807,
-        "tempo": 124.053,
-        "valence": 0.398
+    "2qV5Ce0sMlFsrseRO5CTMU": {
+        "name": "Rose Blood",
+        "artists": "Mazzy Star",
+        "danceability": 0.256,
+        "energy": 0.319,
+        "tempo": 83.044,
+        "valence": 0.0666
     },
-    "42VsgItocQwOQC3XWZ8JNA": {
-        "name": "FE!N (feat. Playboi Carti)",
-        "artists": "Travis Scott, Playboi Carti",
-        "danceability": 0.569,
-        "energy": 0.882,
-        "tempo": 148.038,
-        "valence": 0.201
+    "45PxuJqJBnPXZKLxoo9Apj": {
+        "name": "SUPERPOSITION",
+        "artists": "Daniel Caesar, John Mayer",
+        "danceability": 0.589,
+        "energy": 0.279,
+        "tempo": 115.656,
+        "valence": 0.333
     },
-    "1BJJbSX6muJVF2AK7uH1x4": {
-        "name": "Move",
-        "artists": "Adam Port, Stryv, Keinemusik, Orso, Malachiii",
-        "danceability": 0.727,
-        "energy": 0.782,
-        "tempo": 119.992,
-        "valence": 0.655
+    "4qV3FpOX5NQbghsnmx3wKX": {
+        "name": "WHY?",
+        "artists": "Amin\u00e9",
+        "danceability": 0.659,
+        "energy": 0.59,
+        "tempo": 153.003,
+        "valence": 0.223
     },
-    "7Lgz5C5JTmTYwgCFOFmvqM": {
-        "name": "Polish Girl",
-        "artists": "Neon Indian",
-        "danceability": 0.623,
-        "energy": 0.874,
-        "tempo": 111.98,
-        "valence": 0.431
+    "3O4JrloJxuVovz06Q3U0m3": {
+        "name": "BEEN HERE BEFORE",
+        "artists": "24kGoldn",
+        "danceability": 0.665,
+        "energy": 0.796,
+        "tempo": 99.028,
+        "valence": 0.102
+    },
+    "31ayhhW1UfunXxMjU2QvbR": {
+        "name": "An Old Farmer's Smile",
+        "artists": "Macabre Plaza",
+        "danceability": 0.572,
+        "energy": 0.756,
+        "tempo": 109.947,
+        "valence": 0.806
+    },
+    "002nFT2kRsfvS0d17AwWsB": {
+        "name": "A Month Or Two",
+        "artists": "Odie Leigh",
+        "danceability": 0.409,
+        "energy": 0.274,
+        "tempo": 185.358,
+        "valence": 0.701
+    },
+    "2VOrYcyK0rqa9gZ0gUL0fI": {
+        "name": "Crop Circles",
+        "artists": "Odie Leigh",
+        "danceability": 0.653,
+        "energy": 0.288,
+        "tempo": 137.853,
+        "valence": 0.214
+    },
+    "67nepsnrcZkowTxMWigSbb": {
+        "name": "MELTDOWN (feat. Drake)",
+        "artists": "Travis Scott, Drake",
+        "danceability": 0.557,
+        "energy": 0.774,
+        "tempo": 111.975,
+        "valence": 0.397
+    },
+    "7icHdqnBpCxst6WLS7G1ij": {
+        "name": "What Kind of Love",
+        "artists": "Childish Gambino",
+        "danceability": 0.395,
+        "energy": 0.153,
+        "tempo": 80.587,
+        "valence": 0.287
+    },
+    "6pDEVRbnV7xwT0EHFY41HC": {
+        "name": "Tomioka",
+        "artists": "Jay Eazy",
+        "danceability": 0.761,
+        "energy": 0.573,
+        "tempo": 154.189,
+        "valence": 0.606
+    },
+    "6Aj2H0Z0v0JgnSfPEwCgW0": {
+        "name": "Babylon (feat. Kendrick Lamar)",
+        "artists": "SZA, Kendrick Lamar",
+        "danceability": 0.51,
+        "energy": 0.71,
+        "tempo": 131.891,
+        "valence": 0.367
+    },
+    "31MQR9rOHRXyg4J01hRY1h": {
+        "name": "Fall in Love with You.",
+        "artists": "Montell Fish",
+        "danceability": 0.483,
+        "energy": 0.0394,
+        "tempo": 73.984,
+        "valence": 0.146
+    },
+    "3NRql0A1Ef4RCvT473iqgD": {
+        "name": "Hell N Back",
+        "artists": "Bakar",
+        "danceability": 0.633,
+        "energy": 0.684,
+        "tempo": 209.688,
+        "valence": 0.725
+    },
+    "5HkloVRj7hJe04zHDAqTpf": {
+        "name": "Moment Of Your Life",
+        "artists": "Brent Faiyaz, Coco Jones",
+        "danceability": 0.768,
+        "energy": 0.48,
+        "tempo": 127.987,
+        "valence": 0.616
+    },
+    "3F5CgOj3wFlRv51JsHbxhe": {
+        "name": "Jimmy Cooks (feat. 21 Savage)",
+        "artists": "Drake, 21 Savage",
+        "danceability": 0.529,
+        "energy": 0.673,
+        "tempo": 165.921,
+        "valence": 0.366
     }
 }
