@@ -5,11 +5,14 @@ import styles from '../../../styles';
 import Footer from '../Footer/Footer';
 import { api } from '../../../convex/_generated/api';
 import { useQuery } from "convex/react";
+import { AppContext } from '../../AppContext';
 
 const SongsPage = () => {
   const [sound, setSound] = useState();
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentSong, setCurrentSong] = useState('');
+  const { sharedData } = useContext(AppContext);
+  console.log(sharedData);
 
 
   const fetchNextSong = async () => {

@@ -136,19 +136,21 @@ const App = () => {
     //     )}
     //   </ConvexProvider>
     // </StrictMode>
-    <ConvexProvider client={convex}>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Welcome" screenOptions={{
-          // Hide the header for all other routes.
-          headerShown: false,
-        }}>
-          <Stack.Screen name="Welcome" component={WelcomePage} />
-          <Stack.Screen name="Connect" component={ConnectPage} />
-          <Stack.Screen name="Prompt" component={PromptPage} />
-          <Stack.Screen name="Song" component={SongsPage} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </ConvexProvider>
+    <AppProvider>
+      <ConvexProvider client={convex}>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Welcome" screenOptions={{
+            // Hide the header for all other routes.
+            headerShown: false,
+          }}>
+            <Stack.Screen name="Welcome" component={WelcomePage} />
+            <Stack.Screen name="Connect" component={ConnectPage} />
+            <Stack.Screen name="Prompt" component={PromptPage} />
+            <Stack.Screen name="Song" component={SongsPage} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </ConvexProvider>
+    </AppProvider>
   );
 };
 

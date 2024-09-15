@@ -3,14 +3,16 @@ import { View, Text, Image, TouchableOpacity, Alert, TextInput, KeyboardAvoiding
 import { useNavigation } from '@react-navigation/native';
 import styles from '../../../styles';
 import Footer from '../Footer/Footer';
+import { AppContext } from '../../AppContext';
 
 const PromptPage = () => {
   const navigation = useNavigation();
   const [inputText, setInputText] = useState('');
+  const { sharedData, setSharedData } = useContext(AppContext);
 
   const handleSubmit = () => {
-
     navigation.navigate('Song');
+    setSharedData(inputText);
   };
 
   return (
