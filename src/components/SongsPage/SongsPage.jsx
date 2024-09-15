@@ -9,8 +9,8 @@ const SongsPage = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentSong, setCurrentSong] = useState({ title: 'Taylor\s version from the vault ....', artist: 'Taylor Swift' });
 
-  const parseSongTitle = (song) => {
-    return song.replace(/[^a-zA-Z]/g, '').toUpperCase();
+  const songFilePath = (song) => {
+    return './songs' + song.replace(/[^a-zA-Z]/g, '').toUpperCase() + '.mp3';
   }
 
   async function playPauseSound() {
@@ -25,7 +25,7 @@ const SongsPage = () => {
       setIsPlaying(!isPlaying);
     } else {
       console.log('Loading Sound');
-      const { sound } = await Audio.Sound.createAsync(require('./songs/party.mp3'));
+      const { sound } = await Audio.Sound.createAsync(require(songFilePath(currentSong.title)));
       setSound(sound);
       console.log('Playing Sound');
       await sound.playAsync();
