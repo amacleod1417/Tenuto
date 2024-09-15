@@ -27,7 +27,6 @@ const PromptPage = () => {
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
-              Alert.alert('Input Submitted', inputText);
               navigation.navigate('Song');
             }}
           >
