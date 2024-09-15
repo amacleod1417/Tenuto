@@ -8,6 +8,11 @@ const PromptPage = () => {
   const navigation = useNavigation();
   const [inputText, setInputText] = useState('');
 
+  const handleSubmit = () => {
+
+    navigation.navigate('Song');
+  };
+
   return (
     <KeyboardAvoidingView
       style={styles.page}
@@ -26,9 +31,7 @@ const PromptPage = () => {
           />
           <TouchableOpacity
             style={styles.button}
-            onPress={() => {
-              navigation.navigate('Song');
-            }}
+            onPress={handleSubmit}
           >
             <Text style={styles.buttonText}>submit</Text>
           </TouchableOpacity>
