@@ -36,5 +36,176 @@
             "Hope",
             "Acceptance"
         ]
+    },
+    "2cZOYofOX4d6g0OXxkaIjA": {
+        "name": "ALL RED",
+        "artists": "Playboi Carti",
+        "danceability": 0.76,
+        "energy": 0.663,
+        "tempo": 143.082,
+        "valence": 0.209,
+        "meaning": "A song about the struggle of moving on from a past relationship, accepting the changes, and learning to embrace a new life.",
+        "genres": [
+            "Pop",
+            "Ballad"
+        ],
+        "emotions": [
+            "Sadness",
+            "Nostalgia",
+            "Hope",
+            "Acceptance"
+        ]
+    },
+    "5G2f63n7IPVPPjfNIGih7Q": {
+        "name": "Taste",
+        "artists": "Sabrina Carpenter",
+        "danceability": 0.674,
+        "energy": 0.907,
+        "tempo": 112.964,
+        "valence": 0.721,
+        "meaning": "A song about the struggle of moving on from a past relationship, accepting the changes, and learning to embrace a new life.",
+        "genres": [
+            "Pop",
+            "Ballad"
+        ],
+        "emotions": [
+            "Sadness",
+            "Nostalgia",
+            "Hope",
+            "Acceptance"
+        ]
+    },
+    "2qSkIjg1o9h3YT9RAgYN75": {
+        "name": "Espresso",
+        "artists": "Sabrina Carpenter",
+        "danceability": 0.701,
+        "energy": 0.76,
+        "tempo": 103.969,
+        "valence": 0.69,
+        "meaning": "A song about the struggle of moving on from a past relationship, accepting the changes, and learning to embrace a new life.",
+        "genres": [
+            "Pop",
+            "Ballad"
+        ],
+        "emotions": [
+            "Sadness",
+            "Nostalgia",
+            "Hope",
+            "Acceptance"
+        ]
+    },
+    "4xdBrk0nFZaP54vvZj0yx7": {
+        "name": "HOT TO GO!",
+        "artists": "Chappell Roan",
+        "danceability": 0.742,
+        "energy": 0.757,
+        "tempo": 139.982,
+        "valence": 0.957,
+        "meaning": "A song about the struggle of moving on from a past relationship, accepting the changes, and learning to embrace a new life.",
+        "genres": [
+            "Pop",
+            "Ballad"
+        ],
+        "emotions": [
+            "Sadness",
+            "Nostalgia",
+            "Hope",
+            "Acceptance"
+        ]
+    },
+    "51ZQ1vr10ffzbwIjDCwqm4": {
+        "name": "we can't be friends (wait for your love)",
+        "artists": "Ariana Grande",
+        "danceability": 0.645,
+        "energy": 0.646,
+        "tempo": 115.842,
+        "valence": 0.295,
+        "meaning": "A song about the struggle of moving on from a past relationship, accepting the changes, and learning to embrace a new life.",
+        "genres": [
+            "Pop",
+            "Ballad"
+        ],
+        "emotions": [
+            "Sadness",
+            "Nostalgia",
+            "Hope",
+            "Acceptance"
+        ]
+    },
+    "2QjOHCTQ1Jl3zawyYOpxh6": {
+        "name": "Sweater Weather",
+        "artists": "The Neighbourhood",
+        "danceability": 0.612,
+        "energy": 0.807,
+        "tempo": 124.053,
+        "valence": 0.398,
+        "meaning": "A song about the struggle of moving on from a past relationship, accepting the changes, and learning to embrace a new life.",
+        "genres": [
+            "Pop",
+            "Ballad"
+        ],
+        "emotions": [
+            "Sadness",
+            "Nostalgia",
+            "Hope",
+            "Acceptance"
+        ]
+    },
+    "42VsgItocQwOQC3XWZ8JNA": {
+        "name": "FE!N (feat. Playboi Carti)",
+        "artists": "Travis Scott, Playboi Carti",
+        "danceability": 0.569,
+        "energy": 0.882,
+        "tempo": 148.038,
+        "valence": 0.201,
+        "meaning": "A song about the struggle of moving on from a past relationship, accepting the changes, and learning to embrace a new life.",
+        "genres": [
+            "Pop",
+            "Ballad"
+        ],
+        "emotions": [
+            "Sadness",
+            "Nostalgia",
+            "Hope",
+            "Acceptance"
+        ]
+    },
+    "1BJJbSX6muJVF2AK7uH1x4": {
+        "name": "Move",
+        "artists": "Adam Port, Stryv, Keinemusik, Orso, Malachiii",
+        "danceability": 0.727,
+        "energy": 0.782,
+        "tempo": 119.992,
+        "valence": 0.655,
+        "meaning": "A song about the struggle of moving on from a past relationship, accepting the changes, and learning to embrace a new life.",
+        "genres": [
+            "Pop",
+            "Ballad"
+        ],
+        "emotions": [
+            "Sadness",
+            "Nostalgia",
+            "Hope",
+            "Acceptance"
+        ]
+    },
+    "7Lgz5C5JTmTYwgCFOFmvqM": {
+        "name": "Polish Girl",
+        "artists": "Neon Indian",
+        "danceability": 0.623,
+        "energy": 0.874,
+        "tempo": 111.98,
+        "valence": 0.431,
+        "meaning": "A song about the struggle of moving on from a past relationship, accepting the changes, and learning to embrace a new life.",
+        "genres": [
+            "Pop",
+            "Ballad"
+        ],
+        "emotions": [
+            "Sadness",
+            "Nostalgia",
+            "Hope",
+            "Acceptance"
+        ]
     }
 }
